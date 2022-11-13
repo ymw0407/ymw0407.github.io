@@ -5,7 +5,7 @@ date: 2022-11-13 22:34:00 +0900
 description: Java # Add post description (optional)
 img: java.JPG # Add image post (optional)
 fig-caption: # Add figcaption (optional)
-tags: [객체지향 프로그래밍, develop]
+tags: [객체지향 프로그래밍, DEVELOP]
 ---
 
 # 13장
@@ -86,12 +86,12 @@ public class Main {
 
 
 > 중간점검!
-1. 데이터를 Object 참조형 변수에 저장하는 것이 왜 위험할 수 있는가?
+1. 데이터를 Object 참조형 변수에 저장하는 것이 왜 위험할 수 있는가?<br>
  --> Object의 경우에는, 잘못된 객체를 넣어도 컴파일 단계에서 걸러내지 못한다.<br><br>
-2. Box 객체에 Rectangle 객체를 저장하도록 제너릭을 이용하여 생성하여 보라.
+2. Box 객체에 Rectangle 객체를 저장하도록 제너릭을 이용하여 생성하여 보라.<br>
  --> MiddleTest.java 참고<br><br>
-3. 타입 매개 변수 T를 가지는 Point 클래스를 정의하여 보라. Point 클래스는 2차원 공간에서 점을 나타낸다.
+3. 타입 매개 변수 T를 가지는 Point 클래스를 정의하여 보라. Point 클래스는 2차원 공간에서 점을 나타낸다.<br>
  --> 일단 패스...<br><br>
-4. 제너릭 메소드 sub()에서 매개 변수 d를 타입 매개 변수를 이용하여서 정의하여 보라.
+4. 제너릭 메소드 sub()에서 매개 변수 d를 타입 매개 변수를 이용하여서 정의하여 보라.<br>
  --> public \<T> void sub(t d){var = d;}
 {:#idea}

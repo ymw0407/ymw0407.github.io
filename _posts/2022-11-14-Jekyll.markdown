@@ -5,7 +5,7 @@ date: 2022-11-14 02:56:00 +0900
 description: Jekyll # Add post description (optional)
 img: java.JPG # Add image post (optional)
 fig-caption: # Add figcaption (optional)
-tags: [유레카 프로젝트, develop]
+tags: [유레카 프로젝트, DEVELOP]
 ---
 
 ## Ureka Project - Github Blog
