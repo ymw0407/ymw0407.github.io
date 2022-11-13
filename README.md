@@ -1,31 +1,30 @@
-# Flexible-Jekyll is a simple and clean theme for Jekyll
+# Ureka Project - Github Blog
 
-![](https://github.com/artemsheludko/flexible-jekyll/blob/master/assets/img/promo-img.jpg?raw=true)
+## How to handle Jekyll
 
-## Demo
+1. Install Ruby
+   <a href="https://www.ruby-lang.org/en/downloads/">link</a>
 
-Check the theme in action [Demo](https://artemsheludko.github.io/flexible-jekyll/)
+2. Clone this Repository
 
-The main page would look like this:
+```bash
+git clone https://github.com/ymw0407/ymw0407.github.io.git
+```
 
-![Main page preview](https://github.com/artemsheludko/flexible-jekyll/blob/master/assets/img/home-page.jpg?raw=true)
+3. Install Jekyll & Bundler
 
-The post page would look like this:
+```bash
+sudo gem install jekyll bundler
+```
 
-![Post page preview](https://github.com/artemsheludko/flexible-jekyll/blob/master/assets/img/post-example.jpg?raw=true)
+4. Setting with Bundler
 
-## Features
+```bash
+bundle install 
+```
 
-- [Google Fonts](https://fonts.google.com/)
-- [Font Awesome](http://fontawesome.io/)
-- [Disqus](https://disqus.com/)
-- [Analytics](https://analytics.google.com/analytics/web/)
-- Support Emoji
+5. Run Jekyll at local
 
-## Installation:
-
-Fork the ``master`` branch and follow the [Jekyll Installation Documentation](https://jekyllrb.com/docs/installation/).
-
-## License
-
-GNU General Public License v3.0
+```bash
+bundle exec jekyll serve
+```
