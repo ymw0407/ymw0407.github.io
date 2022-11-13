@@ -18,19 +18,19 @@ tags: [유레카 프로젝트, DEVELOP]
 
 2. Clone this Repository
 
-```bash
+```console
 git clone https://github.com/ymw0407/ymw0407.github.io.git
 ```
 
 3. Install Jekyll & Bundler
 
-```bash
+```console
 sudo gem install jekyll bundler
 ```
 
 4. Setting with Bundler
 
-```bash
+```console
 bundle install
 ```
 
