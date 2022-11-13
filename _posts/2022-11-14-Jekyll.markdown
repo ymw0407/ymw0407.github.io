@@ -18,8 +18,8 @@ tags: [유레카 프로젝트, DEVELOP]
 
 2. Clone this Repository
 
-```console
-git clone https://github.com/ymw0407/ymw0407.github.io.git
+```bash
+user@user-System-Product-Name:~$ git clone https://github.com/ymw0407/ymw0407.github.io.git
 ```
 
 3. Install Jekyll & Bundler
