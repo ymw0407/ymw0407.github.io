@@ -187,6 +187,7 @@ list.forEach((n) -> System.out.println(n));
  --> 글쎄요... <br><br>
 3. Colleciton 인터페이스의 각 메소드들의 기능을 자바 API 웹페이지를 이용하여 조사하여 보자 <br>
  --> 일단 패스... <br><br>
+{:#idea}
 
 ## ArrayList & Vector
 
@@ -223,6 +224,7 @@ list.remove( 2 ); // ["MILK", "APPLE"]
 ```
 
 > 참고: 불행하게도 자바에서는 배열, ArrayList, 문자열 객체의 크기를 알아내는 방법은 약간 다르다. (배열: array.length, ArrayList: arrayList.size(), 문자열: string.length())
+{:#idea}
 
 > 중간점검! <br>
 1. ArrayList가 기존의 배열보다 좋은 점은 무엇인가? <br>
@@ -233,6 +235,7 @@ list.remove( 2 ); // ["MILK", "APPLE"]
  --> 글쎄요... <br><br>
 4. ArrayList 안의 객체들을 반복 처리하는 방법들을 모두 설명하라. <br>
  --> for문, for-Each문, while문(get 메소드), Iterator(hasNext, next 메소드), 람다식(forEach 메소드), Stream API <br><br> 
+{:#idea}
 
 ## LinkedList
 - 빈번하게 삽입과 삭제가 일어나는 경우에 사용하는 배열
@@ -291,6 +294,7 @@ for (int i=0; i<list.size(); i++){
 - ArrayList는 인덱스를 가지고 원소에 접근할 경우, 항상 일정한 시간만 소요된다. ArrayList는 리스트의 각각의 워소를 위하여 노드 객체를 할당할 필요가 없다. 또 동시에 많은 원소를 이동해야 하는 경우에는 System.arraycopy()를 사용할 수 있다.
  
 - 만약 리스트의 처음에 빈번하게 원소를 추가하거나 내부의 원소 삭제를 반복하는 경우에느 LinkedList를 사용하는 것이 낫다. LinkedList에서는 일정한 시간만 걸리지만, ArrayList는 원소의 갯수에 비례하는 시간이 소요된다. <br><br>
+{:#idea}
 
 [참고](https://devlog-wjdrbs96.tistory.com/64)
 
