@@ -3,7 +3,7 @@ layout: post
 title: 유레카 프로젝트 - Github Blog
 date: 2022-11-14 02:56:00 +0900
 description: Jekyll # Add post description (optional)
-img: java.JPG # Add image post (optional)
+img: jekyll.png # Add image post (optional)
 fig-caption: # Add figcaption (optional)
 tags: [유레카 프로젝트, DEVELOP]
 ---
@@ -12,30 +12,38 @@ tags: [유레카 프로젝트, DEVELOP]
 
 ### How to handle Jekyll
 
-1. Install Ruby
+- Install Ruby
 
-    <a href="https://www.ruby-lang.org/en/downloads/">link</a>
+    __<a href="https://www.ruby-lang.org/en/downloads/">link</a>__
 
-2. Clone this Repository
+- Clone this Repository
 
 ```bash
-user@user-System-Product-Name:~$ git clone https://github.com/ymw0407/ymw0407.github.io.git
+git clone https://github.com/ymw0407/ymw0407.github.io.git
 ```
 
-3. Install Jekyll & Bundler
+- Install Jekyll & Bundler
 
-```console
+```bash
 sudo gem install jekyll bundler
 ```
 
-4. Setting with Bundler
+- Setting with Bundler
 
-```console
+```bash
 bundle install
 ```
 
-5. Run Jekyll at local
+- Run Jekyll at local
 
 ```bash
 bundle exec jekyll serve
 ```
+
+### Changed from origin blog
+기존에 만들어져 있던 반응형 웹 페이지의 기본은 그대로 내버려둔채, CSS와 HTML, Template language를 수정하여 제 자신만의 블로그를 만들어냈습니다. <br>
+기존에 존재했던 Contact Me의 twitter와 facebook을 각각 Instagram과 Programmers 이력서로 대체하였고, 코드 블럭 및 다양한 하이라이트들을 보다 나은 디자인으로 대체하였습니다.
+
+### 해당 프로젝트 목표
+유레카 프로젝트라는 과목에 의해서 처음 만들게 되었지만, 이를 계속 활용하여 제가 공부한 내용들을 정리하고 다시 볼 수 있으며, 제가 힘들어했던 부분을 다른 사람들이 보고 편히 해결할 수 있게 만들고자 계속 운영하는 것이 목표입니다. <br>
+뿐만 아니라, 개인적인 이야기를 하는 일반적인 블로그의 역할도 같이할 수 있도록 운영하고자 합니다.

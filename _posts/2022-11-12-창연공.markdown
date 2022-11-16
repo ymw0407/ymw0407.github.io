@@ -3,7 +3,7 @@ layout: post
 title: 창업연계공학입문설계 - 중간고사 정리
 date: 2022-11-13 22:34:00 +0900
 description: Java # Add post description (optional)
-img: java.JPG # Add image post (optional)
+img: 창연공.jpg # Add image post (optional)
 fig-caption: # Add figcaption (optional)
 tags: [창업연계공학입문설계, DEVELOP]
 ---
