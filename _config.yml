@@ -17,7 +17,7 @@ social-linkedin: # add your Linkedin handle
 social-email: yunminwo1211@kookmin.ac.kr # add your Email address
 
 # Tracker
-analytics: # Google Analytics
+analytics: G-9B5C1VSZZ6 # Google Analytics
 
 # Build Settings
 markdown: kramdown
