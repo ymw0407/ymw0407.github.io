@@ -1,0 +1,44 @@
+---
+layout: post
+title: Git 심화 정리
+date: 2022-11-24 02:08:00 +0900
+description: git 심화 # Add post description (optional)
+img: git.jpg # Add image post (optional)
+fig-caption: # Add figcaption (optional)
+tags: [유레카 프로젝트, DEVELOP]
+---
+
+## 개요
+내가 임베디드 소프트웨어 경진대회에서 프로젝트를 진행하면서 Git이 정말로 많이 늘었다. <br>
+git과 github라곤 Drag&Drop 밖에 못한던 내가... git bash를 쓰기 시작하고 이렇게 블로그에 이런 내용을 넣게된 것은 진우 덕분(때문)이다... <br>
+git에는 한 가지 큰 격언이 있다. 이 격언으로 해당 포스팅을 시작하겠다. <br><br>
+
+> Git과 Github는 ㅈ되어봐야 안다!
+{:#idea} 
+
+## Git이란...
+우선 Git이란 형상 관리 도구, 분산형 관리 시스템 등등... 이런 저런 소개 말이 많지만 짧게 말하자면 협업을 할때 소스코드를 효과적으로 관리할 수 있는 __VCS(Version Control System, 버전 관리 시스템)__ 이다! <br><br>
+
+- 혹시 코딩을 하다가 원래의 상태로 돌아가야 하는 상황이 있지는 않았는가?
+- 팀끼리 코딩을 할때, 파일을 직접 옮겨가면서 소스코드를 관리하고, 각자가 코딩한 부분을 합치는데 있어서 많은 오류를 겪지는 않았는가? <br><br>
+
+위와 같은 이유를 해결하기 위해 우리는 버전 관리 시스템인 Git과 Github를 사용하게 된다. <br><br>
+
+## Github란... 
+깃허브는 git을 사용하는 프로젝트를 지원하는 웹호스팅 서비스이다. 쉽게 말해, 언제 어디서나 협업 프로젝트를 쉽게 진행할 수 있도록 돕는 역할을 한다.
+
+## Git vs Github
+위와 같이 말해서는 Git과 Github의 차이를 알기 어렵고, 그 차이에 대해 작성하지도 않았다! <br>
+우선 Git은 로컬에서 작동하며, Github는 웹 서버에 호스팅(위에)이 되어있다. <br>
+다시 말해서, git에서 Local Repository를 만들어서 개인의 작업을 하고(add & commit), github에 Remote Repository를 만들어서 개인의 작업을 git에서 github로 올려서(push) 팀원들과 여러 branch를 만들어서 소스코드를 공유하고 각자의 코드를 합쳐(merge & rebase)가며 협업한다고 할 수 있다. <br>
+_우선 말이 어렵지만, 일단 넘어가고 나중에 돌아오면 이해할 수 있을 것이다._ <br><br>
+
+## Git의 사용
+위에서 git을 통해서 개인의 작업을 할 수 있다고 하였다.<br>
+github를 하기에 앞서 git을 먼저 익혀볼 것이다. <br>
+git은 설치되어 있다고 가정하겠다. <br><br>
+
+git은 github와 달리 GUI(Graphic Line Interface)가 아니라 CLI(Command Line Interface) 환경으로 진행된다.<br><br>
+
+### Git 저장소 만들기
+git을 사용하려면 소스코드를 저장할 저장소(repository)를 만들어야한다. git은 Local Repository를 사용하기 때문에, 소스코드가 저장되어있는 파일에 .git이라는 파일을 통해서 관리가 되게 된다.
