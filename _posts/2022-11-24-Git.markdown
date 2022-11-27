@@ -16,6 +16,8 @@ git에는 한 가지 큰 격언이 있다. 이 격언으로 해당 포스팅을 
 > Git과 Github는 ㅈ되어봐야 안다!
 {:#idea} 
 
+<br><br>
+
 ## Git이란...
 우선 Git이란 형상 관리 도구, 분산형 관리 시스템 등등... 이런 저런 소개 말이 많지만 짧게 말하자면 협업을 할때 소스코드를 효과적으로 관리할 수 있는 __VCS(Version Control System, 버전 관리 시스템)__ 이다! <br><br>
 
@@ -42,3 +44,7 @@ git은 github와 달리 GUI(Graphic Line Interface)가 아니라 CLI(Command Lin
 
 ### Git 저장소 만들기
 git을 사용하려면 소스코드를 저장할 저장소(repository)를 만들어야한다. git은 Local Repository를 사용하기 때문에, 소스코드가 저장되어있는 파일에 .git이라는 파일을 통해서 관리가 되게 된다.
+
+---
+
+### Comming Soom (대회 & 학생주도형 프로젝트 & AD 이슈)...
