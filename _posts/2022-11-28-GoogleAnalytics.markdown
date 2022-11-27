@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 유레카 프로젝트 - Google Analytics
-date: 2022-11-14 02:56:00 +0900
+date: 2022-11-28 03:07:00 +0900
 description: Jekyll # Add post description (optional)
 img: analytics/analytics6.png # Add image post (optional)
 fig-caption: # Add figcaption (optional)
