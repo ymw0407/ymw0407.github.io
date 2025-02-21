@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Allow: /LetterBox-Generator/
 
 Sitemap: https://ymw0407.github.io/LetterBox-Generator/sitemap.xml
