@@ -1,1 +1,142 @@
-<a href="/LetterBox-Generator"></a>
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>윤민우 (Minwoo Yun) | 연구 블로그 & 포트폴리오 · Systems & Architecture Researcher</title>
+    <meta
+      name="description"
+      content="윤민우 (Minwoo Yun) 연구 블로그 및 포트폴리오 · 리눅스 커널 비동기 I/O(io_uring, DPAS), 플래시 스토리지 시스템(NVMe/NAND), 완전동형암호(FHE) 및 메모리 중심 컴퓨터 아키텍처 연구 기록 (국민대 Memory & Storage Lab · UC Irvine BIAS Lab 학부연구생)"
+    />
+    <meta
+      name="keywords"
+      content="윤민우, Minwoo Yun, sinav, 시나브, 국민대학교, Kookmin University, Memory and Storage Lab, MSL, UC Irvine, BIAS Lab, Linux Kernel, io_uring, DPAS, NVMe, NAND Flash, FHE, Computer Architecture, Open-Set-Go, KTCP, KSC"
+    />
+    <meta name="author" content="Minwoo Yun (윤민우 · sinav)" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#2563eb" />
+
+    <!-- Canonical & RSS -->
+    <link rel="canonical" href="https://ymw0407.github.io/" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="윤민우 (Minwoo Yun) · Research Blog & Systems Notes RSS"
+      href="/rss.xml"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- OpenGraph / Social Media -->
+    <meta property="og:site_name" content="윤민우 (Minwoo Yun) · Research Blog & Portfolio" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="윤민우 (Minwoo Yun) | 연구 블로그 & 포트폴리오 · Systems & Architecture Researcher"
+    />
+    <meta
+      property="og:description"
+      content="운영체제 커널 I/O(io_uring), 플래시 스토리지 시스템(NVMe/NAND), 메모리 중심 컴퓨터 아키텍처 연구 노트 및 포트폴리오"
+    />
+    <meta property="og:url" content="https://ymw0407.github.io/" />
+    <meta
+      property="og:image"
+      content="https://ymw0407.github.io/photography/2026-weather-aurora-curtain.jpg"
+    />
+    <meta property="og:image:alt" content="Minwoo Yun · Systems & Architecture Research Blog" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="윤민우 (Minwoo Yun) | 연구 블로그 & 포트폴리오 · Systems & Architecture Researcher"
+    />
+    <meta
+      name="twitter:description"
+      content="운영체제 커널 I/O(io_uring), 플래시 스토리지 시스템(NVMe/NAND), 메모리 중심 컴퓨터 아키텍처 연구 노트 및 포트폴리오"
+    />
+    <meta
+      name="twitter:image"
+      content="https://ymw0407.github.io/photography/2026-weather-aurora-curtain.jpg"
+    />
+
+    <!-- Pretendard Variable & JetBrains Mono Fonts -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Default Structured Data (JSON-LD) -->
+    <script id="seo-json-ld" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://ymw0407.github.io/#website",
+            "url": "https://ymw0407.github.io/",
+            "name": "윤민우 (Minwoo Yun) · Research Blog & Portfolio",
+            "description": "Operating Systems, Storage Systems & Computer Architecture Research Blog and Portfolio by Minwoo Yun",
+            "inLanguage": ["ko-KR", "en-US"]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://ymw0407.github.io/#person",
+            "name": "Minwoo Yun",
+            "alternateName": ["윤민우", "sinav", "시나브"],
+            "jobTitle": "Undergraduate Systems & Computer Architecture Researcher",
+            "url": "https://ymw0407.github.io/",
+            "affiliation": {
+              "@type": "CollegeOrUniversity",
+              "name": "Kookmin University (Memory & Storage Laboratory)"
+            },
+            "alumniOf": [
+              {
+                "@type": "CollegeOrUniversity",
+                "name": "University of California, Irvine (BIAS Lab · 2026 GREAT Program)"
+              }
+            ],
+            "sameAs": [
+              "https://github.com/ymw0407",
+              "https://www.linkedin.com/in/ymw0407/",
+              "https://www.instagram.com/ymw0407/"
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <script type="text/javascript">
+      // Restore clean URL from GitHub Pages 404.html fallback redirect
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

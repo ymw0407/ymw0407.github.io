@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ymw0407.github.io/sitemap.xml
