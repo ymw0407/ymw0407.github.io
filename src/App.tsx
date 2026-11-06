@@ -32,6 +32,7 @@ import { BlogPostPage } from './pages/BlogPostPage';
 import { Language, PROFILE_DATA } from './data/careerData';
 import { getAllBlogPosts } from './utils/blogLoader';
 import { updateDocumentSeo } from './utils/seo';
+import { pageMetadata } from './utils/social';
 import { darkTheme, lightTheme } from './styles/theme.css';
 import { scrollTopFab } from './styles/components.css';
 import {
@@ -169,7 +170,9 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
         canonicalPath: '/archive',
         lang,
       });
-    } else if (path === '/' || path === '/projects') {
+    } else if (path === '/projects') {
+      updateDocumentSeo({ ...pageMetadata('/projects', lang), canonicalPath: path, lang });
+    } else if (path === '/') {
       updateDocumentSeo({
         title:
           lang === 'ko'

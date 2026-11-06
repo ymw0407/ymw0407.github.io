@@ -1,4 +1,6 @@
 import fs from 'node:fs';
+import { absoluteSiteUrl, pageMetadata, shareImagePath, SITE_ORIGIN, socialPages, socialTags } from '../src/utils/social.ts';
+import { writeSocialCard } from './social-card.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -8,9 +10,6 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const POSTS_DIR = path.join(ROOT_DIR, 'src', 'content', 'posts');
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 const DIST_DIR = path.join(ROOT_DIR, 'dist');
-
-const SITE_ORIGIN = 'https://ymw0407.github.io';
-const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/photography/2026-weather-aurora-curtain.jpg`;
 
 function escapeXml(str = '') {
   return String(str)
@@ -78,11 +77,21 @@ function loadBlogPosts() {
       date: meta.date || '2026-11-01',
       category: meta.category || 'Research Notes',
       tags: Array.isArray(meta.tags) ? meta.tags : [],
-      summary: meta.summary || '',
+      summary: meta.summary || body.trim().replace(/\s+/g, ' ').slice(0, 160) || meta.title || slug,
       summaryEn: meta.summaryEn || meta.summary || '',
       body: body.trim(),
     };
   });
+}
+
+function injectSocialTags(html, options) {
+  const tags = Object.entries(socialTags(options)).map(([key, value]) => {
+    const attr = key.startsWith('og:') ? 'property' : 'name';
+    return `<meta ${attr}="${key}" content="${escapeHtmlAttr(value)}" />`;
+  }).join('\n    ');
+  return html
+    .replace(/<meta\s+(?:property="og:[^"]+"|name="twitter:[^"]+")\s+content="[^"]*"\s*\/?>/g, '')
+    .replace('</head>', () => `    ${tags}\n  </head>`);
 }
 
 function injectRouteSeoIntoHtml(baseHtml, routeConfig) {
@@ -90,7 +99,6 @@ function injectRouteSeoIntoHtml(baseHtml, routeConfig) {
     title,
     description,
     canonicalPath,
-    type = 'website',
     keywords = [],
     publishedTime,
     extraHeadTags = '',
@@ -98,84 +106,58 @@ function injectRouteSeoIntoHtml(baseHtml, routeConfig) {
     noscriptHtml = '',
   } = routeConfig;
 
-  const fullUrl = `${SITE_ORIGIN}${canonicalPath === '/' ? '/' : canonicalPath}`;
+  const fullUrl = absoluteSiteUrl(canonicalPath);
   let html = baseHtml;
 
   // Replace <title>
   html = html.replace(
     /<title>[\s\S]*?<\/title>/,
-    `<title>${escapeHtmlAttr(title)}</title>`
+    () => `<title>${escapeHtmlAttr(title)}</title>`
   );
 
   // Replace meta description
   html = html.replace(
     /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/,
-    `<meta name="description" content="${escapeHtmlAttr(description)}" />`
+    () => `<meta name="description" content="${escapeHtmlAttr(description)}" />`
   );
 
   // Replace meta keywords if provided
   if (keywords.length > 0) {
     html = html.replace(
       /<meta\s+name="keywords"\s+content="[^"]*"\s*\/?>/,
-      `<meta name="keywords" content="${escapeHtmlAttr(keywords.join(', '))}" />`
+      () => `<meta name="keywords" content="${escapeHtmlAttr(keywords.join(', '))}" />`
     );
   }
 
   // Replace canonical URL
   html = html.replace(
     /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/,
-    `<link rel="canonical" href="${escapeHtmlAttr(fullUrl)}" />`
+    () => `<link rel="canonical" href="${escapeHtmlAttr(fullUrl)}" />`
   );
 
-  // Replace OG tags
-  html = html.replace(
-    /<meta\s+property="og:type"\s+content="[^"]*"\s*\/?>/,
-    `<meta property="og:type" content="${escapeHtmlAttr(type)}" />`
-  );
-  html = html.replace(
-    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/,
-    `<meta property="og:title" content="${escapeHtmlAttr(title)}" />`
-  );
-  html = html.replace(
-    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/,
-    `<meta property="og:description" content="${escapeHtmlAttr(description)}" />`
-  );
-  html = html.replace(
-    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/,
-    `<meta property="og:url" content="${escapeHtmlAttr(fullUrl)}" />`
-  );
-
-  // Replace Twitter tags
-  html = html.replace(
-    /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/,
-    `<meta name="twitter:title" content="${escapeHtmlAttr(title)}" />`
-  );
-  html = html.replace(
-    /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/,
-    `<meta name="twitter:description" content="${escapeHtmlAttr(description)}" />`
-  );
+  html = injectSocialTags(html, routeConfig);
 
   // Replace JSON-LD script
   if (jsonLd) {
     html = html.replace(
       /<script id="seo-json-ld" type="application\/ld\+json">[\s\S]*?<\/script>/,
-      `<script id="seo-json-ld" type="application/ld+json">\n${JSON.stringify(
+      () => `<script id="seo-json-ld" type="application/ld+json">\n${JSON.stringify(
         jsonLd,
         null,
         2
-      )}\n    </script>`
+      ).replaceAll('<', '\\u003c')}\n    </script>`
     );
   }
 
   // Inject extra head tags (e.g., article:published_time or Google Scholar citation_* tags)
   if (extraHeadTags) {
-    html = html.replace('</head>', `    ${extraHeadTags}\n  </head>`);
+    html = html.replace('</head>', () => `    ${extraHeadTags}\n  </head>`);
   }
 
   if (publishedTime) {
     html = html.replace(
       '</head>',
-      `    <meta property="article:published_time" content="${escapeHtmlAttr(
+      () => `    <meta property="article:published_time" content="${escapeHtmlAttr(
         publishedTime
       )}" />\n  </head>`
     );
@@ -185,7 +167,7 @@ function injectRouteSeoIntoHtml(baseHtml, routeConfig) {
   if (noscriptHtml) {
     html = html.replace(
       '<div id="root"></div>',
-      `<div id="root"></div>\n    <noscript>${noscriptHtml}</noscript>`
+      () => `<div id="root"></div>\n    <noscript>${noscriptHtml}</noscript>`
     );
   }
 
@@ -196,7 +178,7 @@ function generateSitemapXml(routes) {
   const urlsXml = routes
     .map(
       (r) => `  <url>
-    <loc>${escapeXml(r.fullUrl || `${SITE_ORIGIN}${r.path === '/' ? '/' : r.path}`)}</loc>
+    <loc>${escapeXml(r.fullUrl || absoluteSiteUrl(r.path))}</loc>
     <lastmod>${escapeXml(r.lastmod)}</lastmod>
     <changefreq>${escapeXml(r.changefreq)}</changefreq>
     <priority>${escapeXml(r.priority)}</priority>
@@ -219,7 +201,7 @@ ${urlsXml}
 function generateRssXml(posts) {
   const itemsXml = posts
     .map((post) => {
-      const postUrl = `${SITE_ORIGIN}/posts/${post.slug}`;
+      const postUrl = absoluteSiteUrl(`/posts/${post.slug}`);
       const pubDate = new Date(`${post.date}T09:00:00+09:00`).toUTCString();
       const categories = [post.category, ...post.tags]
         .map((c) => `      <category>${escapeXml(c)}</category>`)
@@ -227,7 +209,7 @@ function generateRssXml(posts) {
       return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${escapeXml(postUrl)}</link>
-      <guid isPermaLink="true">${escapeXml(postUrl)}</guid>
+      <guid isPermaLink="true">https://ymw0407.github.io/posts/${escapeXml(post.slug)}</guid>
       <pubDate>${escapeXml(pubDate)}</pubDate>
       <description>${escapeXml(post.summary)}</description>
 ${categories}
@@ -258,7 +240,7 @@ Sitemap: ${SITE_ORIGIN}/sitemap.xml
 `;
 }
 
-function run() {
+async function run() {
   const posts = loadBlogPosts();
   const today = new Date().toISOString().slice(0, 10);
 
@@ -345,13 +327,13 @@ function run() {
   // Sub-repository GitHub Pages hosted under https://ymw0407.github.io/<repo>/
   const externalSubPages = [
     {
-      fullUrl: `${SITE_ORIGIN}/system_io_uring_study/`,
+      fullUrl: 'https://ymw0407.github.io/system_io_uring_study/',
       lastmod: today,
       changefreq: 'monthly',
       priority: '0.80',
     },
     {
-      fullUrl: `${SITE_ORIGIN}/LetterBox-Generator/`,
+      fullUrl: 'https://ymw0407.github.io/LetterBox-Generator/',
       lastmod: today,
       changefreq: 'monthly',
       priority: '0.70',
@@ -392,24 +374,38 @@ function run() {
 
     const baseHtml = fs.readFileSync(path.join(DIST_DIR, 'index.html'), 'utf8');
 
-    // 1. Pre-render static sub-route HTML files (/blog.html + /blog/index.html, etc.)
+    const writeCard = async (route, title, label, footer) => {
+      const file = path.join(DIST_DIR, shareImagePath(route));
+      fs.mkdirSync(path.dirname(file), { recursive: true });
+      await writeSocialCard(file, { route, title, label, footer, origin: SITE_ORIGIN });
+    };
+
+    for (const [route, page] of Object.entries(socialPages)) {
+      await writeCard(route, page.ko, page.en, page.description);
+    }
+
+    const missingFile = path.join(DIST_DIR, '404.html');
+    fs.writeFileSync(missingFile, injectSocialTags(fs.readFileSync(missingFile, 'utf8'), {
+      ...pageMetadata('/404.html', 'ko'), canonicalPath: '/404.html',
+    }));
+
     for (const route of staticRoutes) {
-      if (route.path === '/') continue;
+      if (route.path === '/') {
+        fs.writeFileSync(path.join(DIST_DIR, 'index.html'), injectSocialTags(baseHtml, {
+          title: route.title, description: route.description, canonicalPath: '/',
+        }));
+        continue;
+      }
       const routeName = route.path.slice(1);
       const routeDir = path.join(DIST_DIR, routeName);
       fs.mkdirSync(routeDir, { recursive: true });
-
       const html = injectRouteSeoIntoHtml(baseHtml, {
         title: route.title,
         description: route.description,
         canonicalPath: route.path,
-        type: 'website',
         extraHeadTags: route.extraHeadTags || '',
-        noscriptHtml: `<main><h1>${escapeHtmlAttr(route.title)}</h1><p>${escapeHtmlAttr(
-          route.description
-        )}</p></main>`,
+        noscriptHtml: `<main><h1>${escapeHtmlAttr(route.title)}</h1><p>${escapeHtmlAttr(route.description)}</p></main>`,
       });
-
       fs.writeFileSync(path.join(DIST_DIR, `${routeName}.html`), html, 'utf8');
       fs.writeFileSync(path.join(routeDir, 'index.html'), html, 'utf8');
     }
@@ -422,8 +418,9 @@ function run() {
       const postDir = path.join(DIST_DIR, 'posts', post.slug);
       fs.mkdirSync(postDir, { recursive: true });
 
-      const postTitle = `${post.title} | 윤민우 (Minwoo Yun) Research Blog`;
-      const fullUrl = `${SITE_ORIGIN}${postPath}`;
+      const postTitle = `${post.title} | 윤민우 · sinav`;
+      const fullUrl = absoluteSiteUrl(postPath);
+      await writeCard(postPath, post.title, post.category, [post.date, ...post.tags.slice(0, 3)].join('   ·   '));
 
       const postJsonLd = {
         '@context': 'https://schema.org',
@@ -438,7 +435,7 @@ function run() {
             dateModified: post.date,
             articleSection: post.category,
             keywords: post.tags.join(', '),
-            image: DEFAULT_OG_IMAGE,
+            image: absoluteSiteUrl(shareImagePath(postPath)),
             author: {
               '@type': 'Person',
               name: 'Minwoo Yun',
@@ -508,4 +505,4 @@ function run() {
   }
 }
 
-run();
+await run();

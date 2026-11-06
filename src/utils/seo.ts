@@ -1,14 +1,15 @@
+import { absoluteSiteUrl, shareImagePath, SITE_ORIGIN, socialTags } from './social';
+
 interface SeoMetaOptions {
   title: string;
   description: string;
   type?: 'website' | 'article';
   publishedTime?: string;
+  section?: string;
   tags?: string[];
   canonicalPath?: string;
   lang?: 'ko' | 'en';
 }
-
-const SITE_ORIGIN = 'https://ymw0407.github.io';
 
 function setOrCreateMeta(attr: 'name' | 'property', key: string, content: string) {
   let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
@@ -20,36 +21,35 @@ function setOrCreateMeta(attr: 'name' | 'property', key: string, content: string
   el.setAttribute('content', content);
 }
 
-export function updateDocumentSeo({
-  title,
-  description,
-  type = 'website',
-  publishedTime,
-  tags = [],
-  canonicalPath = '/',
-  lang = 'ko',
-}: SeoMetaOptions) {
-  if (typeof document === 'undefined') return;
-
-  document.title = title;
-  document.documentElement.lang = lang;
-
-  setOrCreateMeta('name', 'description', description);
-  setOrCreateMeta('name', 'author', 'Minwoo Yun (윤민우)');
-  setOrCreateMeta('property', 'og:title', title);
-  setOrCreateMeta('property', 'og:description', description);
-  setOrCreateMeta('property', 'og:type', type);
-  setOrCreateMeta('property', 'og:locale', lang === 'ko' ? 'ko_KR' : 'en_US');
-  setOrCreateMeta('name', 'twitter:card', 'summary_large_image');
-  setOrCreateMeta('name', 'twitter:title', title);
-  setOrCreateMeta('name', 'twitter:description', description);
-
-  if (tags.length > 0) {
-    setOrCreateMeta('name', 'keywords', tags.join(', '));
+export function updateSharingMeta(options: SeoMetaOptions) {
+  const { type, publishedTime, section, tags = [] } = options;
+  for (const [key, content] of Object.entries(socialTags(options))) {
+    setOrCreateMeta(key.startsWith('og:') ? 'property' : 'name', key, content);
   }
 
-  const fullUrl = `${SITE_ORIGIN}${canonicalPath === '/' ? '/' : canonicalPath}`;
-  setOrCreateMeta('property', 'og:url', fullUrl);
+  document.querySelectorAll('meta[property^="article:"]').forEach(el => el.remove());
+  if (type === 'article') {
+    if (publishedTime) setOrCreateMeta('property', 'article:published_time', publishedTime);
+    if (section) setOrCreateMeta('property', 'article:section', section);
+    for (const tag of tags) {
+      const el = document.createElement('meta');
+      el.setAttribute('property', 'article:tag');
+      el.content = tag;
+      document.head.appendChild(el);
+    }
+  }
+}
+
+export function updateDocumentSeo(options: SeoMetaOptions) {
+  if (typeof document === 'undefined') return;
+  const { title, description, type = 'website', canonicalPath = '/', lang = 'ko', publishedTime, tags = [] } = options;
+  const fullUrl = absoluteSiteUrl(canonicalPath);
+  document.title = title;
+  document.documentElement.lang = lang;
+  updateSharingMeta(options);
+  setOrCreateMeta('name', 'description', description);
+  setOrCreateMeta('name', 'author', 'Minwoo Yun (윤민우)');
+  if (tags.length) setOrCreateMeta('name', 'keywords', tags.join(', '));
 
   let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (!canonicalEl) {
@@ -95,6 +95,7 @@ export function updateDocumentSeo({
               '@type': 'BlogPosting',
               '@id': `${fullUrl}#article`,
               headline: title,
+              image: absoluteSiteUrl(shareImagePath(canonicalPath)),
               description,
               datePublished: publishedTime,
               dateModified: publishedTime,

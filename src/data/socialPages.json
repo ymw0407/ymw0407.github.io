@@ -1,0 +1,45 @@
+{
+  "origin": "https://blog.sinav.cloud",
+  "pages": {
+    "/": {
+      "ko": "연구 블로그 & 포트폴리오", "en": "Research Blog & Portfolio",
+      "description": "윤민우의 운영체제, 스토리지, 컴퓨터 아키텍처 연구 기록과 포트폴리오.",
+      "descriptionEn": "Minwoo Yun's research notes and portfolio in operating systems, storage systems, and computer architecture."
+    },
+    "/blog": {
+      "ko": "블로그", "en": "Blog",
+      "description": "시스템 연구와 개발부터 사진, 커피, 칵테일까지, 윤민우가 쓴 글을 주제별로 모았습니다.",
+      "descriptionEn": "Browse Minwoo Yun's notes on systems research, software development, photography, coffee, and cocktails."
+    },
+    "/portfolio": {
+      "ko": "포트폴리오 & CV", "en": "Portfolio & CV",
+      "description": "윤민우의 연구·개발 경력, 해군 SW개발병 복무, 백엔드 엔지니어 경험과 주요 수상 이력.",
+      "descriptionEn": "Minwoo Yun's research and engineering experience, software development in the Navy, and selected honors."
+    },
+    "/research": {
+      "ko": "연구실과 연구 주제", "en": "Research & Labs",
+      "description": "국민대학교 MSL과 UC Irvine BIAS Lab에서 공부한 커널 I/O, NAND 플래시, 완전동형암호 연구.",
+      "descriptionEn": "Kernel I/O, NAND flash, and fully homomorphic encryption research at Kookmin MSL and UC Irvine BIAS Lab."
+    },
+    "/publications": {
+      "ko": "학술 논문", "en": "Publications",
+      "description": "오픈소스 프로젝트 생성·운영을 주제로 발표한 KSC 2023 학술대회 논문과 KTCP 2024 확장 논문.",
+      "descriptionEn": "Conference and journal papers on creating and managing open-source projects, with citations and DOI links."
+    },
+    "/projects": {
+      "ko": "소프트웨어 프로젝트", "en": "Projects",
+      "description": "Open-Raw, Co-mit, Open-Set-Go, Home++ 등 윤민우가 개발한 소프트웨어와 시스템 프로젝트.",
+      "descriptionEn": "Software and systems projects by Minwoo Yun, including Open-Raw, Co-mit, Open-Set-Go, and Home++."
+    },
+    "/archive": {
+      "ko": "사진과 기록", "en": "Photography & Archive",
+      "description": "오로라와 운해 등 사진 공모전 수상작, 월간 「해군」에 기고한 수필을 모은 아카이브.",
+      "descriptionEn": "Award-winning aurora and landscape photographs, alongside personal essays for Navy Magazine."
+    },
+    "/404.html": {
+      "ko": "페이지를 찾을 수 없습니다", "en": "Page not found",
+      "description": "요청한 주소를 확인하거나 홈과 블로그 목록으로 이동할 수 있습니다.",
+      "descriptionEn": "Check the requested address or continue to the homepage and blog."
+    }
+  }
+}

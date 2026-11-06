@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { updateSharingMeta } from '../utils/seo';
+import { pageMetadata } from '../utils/social';
 import { RiArrowRightLine, RiErrorWarningLine, RiHome4Line } from 'react-icons/ri';
 import { PHOTO_ARCHIVE, type Language } from '../data/careerData';
 import {
@@ -25,6 +27,7 @@ export function NotFoundPage({ lang }: { lang: Language }) {
   useEffect(() => {
     document.title = `404 · ${heading} | sinav`;
     document.documentElement.lang = lang;
+    updateSharingMeta({ ...pageMetadata('/404.html', lang), canonicalPath: '/404.html', lang });
     const robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
     if (!robots) return;
     const previous = robots.content;

@@ -85,10 +85,11 @@ export const BlogPostPage: React.FC<BlogPostPageProps> = ({ lang, posts }) => {
       lang === 'en' && post.summaryEn ? post.summaryEn : post.summary;
 
     updateDocumentSeo({
-      title: `${displayTitle} | 윤민우 (Minwoo Yun) Blog`,
+      title: `${displayTitle} | ${lang === 'ko' ? '윤민우' : 'Minwoo Yun'} · sinav`,
       description: displayDesc,
       type: 'article',
       publishedTime: post.date,
+      section: post.category,
       tags: post.tags,
       canonicalPath: `/posts/${post.slug}`,
       lang,

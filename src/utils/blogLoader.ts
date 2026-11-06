@@ -210,7 +210,7 @@ export function getAllBlogPosts(): BlogPost[] {
       category,
       categoryId,
       tags: Array.isArray(attributes.tags) ? attributes.tags : [],
-      summary: String(attributes.summary || ''),
+      summary: String(attributes.summary || body.trim().replace(/\s+/g, ' ').slice(0, 160) || attributes.title || slug),
       summaryEn: attributes.summaryEn ? String(attributes.summaryEn) : undefined,
       featured: Boolean(attributes.featured),
       content: body,

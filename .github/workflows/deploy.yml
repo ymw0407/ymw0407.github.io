@@ -41,7 +41,7 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Check the published 404
+      - name: Check the published 404 and sharing previews
         run: node --test tests/pages-artifact.mjs
 
       - name: Upload artifact
