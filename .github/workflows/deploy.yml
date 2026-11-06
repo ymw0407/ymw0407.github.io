@@ -41,6 +41,9 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Check the published 404
+        run: node --test tests/pages-artifact.mjs
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
