@@ -73,6 +73,7 @@ function loadBlogPosts() {
     return {
       slug,
       title: meta.title || slug,
+      rssGuid: meta.rssGuid,
       titleEn: meta.titleEn || meta.title || slug,
       date: meta.date || '2026-11-01',
       category: meta.category || 'Research Notes',
@@ -178,7 +179,7 @@ function generateSitemapXml(routes) {
   const urlsXml = routes
     .map(
       (r) => `  <url>
-    <loc>${escapeXml(r.fullUrl || absoluteSiteUrl(r.path))}</loc>
+    <loc>${escapeXml(absoluteSiteUrl(r.path))}</loc>
     <lastmod>${escapeXml(r.lastmod)}</lastmod>
     <changefreq>${escapeXml(r.changefreq)}</changefreq>
     <priority>${escapeXml(r.priority)}</priority>
@@ -209,7 +210,7 @@ function generateRssXml(posts) {
       return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${escapeXml(postUrl)}</link>
-      <guid isPermaLink="true">https://ymw0407.github.io/posts/${escapeXml(post.slug)}</guid>
+      <guid isPermaLink="${post.rssGuid ? 'false' : 'true'}">${escapeXml(post.rssGuid || postUrl)}</guid>
       <pubDate>${escapeXml(pubDate)}</pubDate>
       <description>${escapeXml(post.summary)}</description>
 ${categories}
@@ -324,16 +325,16 @@ async function run() {
     },
   ];
 
-  // Sub-repository GitHub Pages hosted under https://ymw0407.github.io/<repo>/
+  // These project sites share the custom domain but publish from their own repositories.
   const externalSubPages = [
     {
-      fullUrl: 'https://ymw0407.github.io/system_io_uring_study/',
+      path: '/system_io_uring_study/',
       lastmod: today,
       changefreq: 'monthly',
       priority: '0.80',
     },
     {
-      fullUrl: 'https://ymw0407.github.io/LetterBox-Generator/',
+      path: '/LetterBox-Generator/',
       lastmod: today,
       changefreq: 'monthly',
       priority: '0.70',

@@ -1,4 +1,5 @@
 ---
+rssGuid: "https://ymw0407.github.io/posts/2026-08-28-fhe-encrypted-inference-study-notes"
 title: "UC Irvine GREAT Symposium 발표 & 방문연구 회고: Accelerating Secure Deep Learning with FHE"
 titleEn: "UC Irvine GREAT Symposium & Visiting Research: Accelerating Secure Deep Learning with FHE"
 date: "2026-08-28"

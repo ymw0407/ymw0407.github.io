@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { normalizeEntryUrl } from '../src/utils/entryUrl.ts';
 
-const site = 'https://ymw0407.github.io';
+const site = 'https://blog.sinav.cloud';
 
 test('published HTML aliases and legacy bookmarks retain queries and fragments', () => {
   for (const [input, expected] of [

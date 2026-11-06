@@ -1,3 +1,5 @@
+import { absoluteSiteUrl } from '../utils/social';
+
 export type Language = 'ko' | 'en';
 
 export interface BilingualText {
@@ -208,7 +210,7 @@ export const PROFILE_DATA = {
     email: 'mailto:sinav.dev@gmail.com',
     mslLab: 'https://yongsoojoo.github.io/index.html',
     biasLab: 'https://biaslab.ics.uci.edu/',
-    ioUringStudy: 'https://ymw0407.github.io/system_io_uring_study/',
+    ioUringStudy: absoluteSiteUrl('/system_io_uring_study/'),
   },
   philosophy: {
     summary: {
@@ -332,7 +334,7 @@ export const LAB_EXPERIENCES: LabExperience[] = [
         links: [
           {
             label: { ko: '스터디 웹', en: 'Study Site' },
-            url: 'https://ymw0407.github.io/system_io_uring_study/',
+            url: PROFILE_DATA.links.ioUringStudy,
           },
           {
             label: { ko: 'GitHub', en: 'GitHub' },

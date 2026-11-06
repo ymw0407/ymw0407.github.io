@@ -48,15 +48,6 @@ pnpm build
 
 ## 🌐 GitHub Pages 배포 방법
 
-`.github/workflows/deploy.yml` 이 이미 구성되어 있습니다 (`base: './'` 설정으로 `username.github.io` 루트 도메인과 `username.github.io/repo-name` 서브패스 모두 수정 없이 호환됩니다).
+운영 주소는 [blog.sinav.cloud](https://blog.sinav.cloud/)입니다. `main`에 푸시하면 GitHub Actions가 사이트를 빌드하고 GitHub Pages에 배포합니다.
 
-1. GitHub에서 새 저장소를 생성한 뒤 원격 저장소로 연결하고 푸시합니다:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Researcher portfolio and blog"
-   git branch -M main
-   git remote add origin https://github.com/ymw0407/<REPO_NAME>.git
-   git push -u origin main
-   ```
-2. GitHub 저장소의 **Settings → Pages → Build and deployment → Source** 를 **`GitHub Actions`** 로 설정하면 자동 배포됩니다.
+저장소의 **Settings → Pages**에서 배포 소스는 `GitHub Actions`, 맞춤 도메인은 `blog.sinav.cloud`로 설정합니다.

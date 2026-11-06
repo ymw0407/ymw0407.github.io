@@ -1,4 +1,5 @@
 ---
+rssGuid: "https://ymw0407.github.io/posts/2026-10-18-io-uring-submission-completion-architecture"
 title: "Linux io_uring 아키텍처와 폴링/인터럽트 기반 동적 I/O 완료(DPAS) 스터디"
 titleEn: "Deep Dive into Linux io_uring Architecture and Dynamic I/O Completion (DPAS)"
 date: "2026-10-18"
@@ -39,7 +40,7 @@ prep_read_request(sqe, fd, buf, len, offset);
 smp_store_release(sq->ktail, tail + 1);
 ```
 
-직접 구현한 대화형 시각화 자료와 벤치마크 스크립트는 [io_uring Interactive Study Website](https://ymw0407.github.io/system_io_uring_study/) 및 [GitHub 저장소](https://github.com/ymw0407/system_io_uring_study)에서 확인할 수 있습니다.
+직접 구현한 대화형 시각화 자료와 벤치마크 스크립트는 [io_uring Interactive Study Website](https://blog.sinav.cloud/system_io_uring_study/) 및 [GitHub 저장소](https://github.com/ymw0407/system_io_uring_study)에서 확인할 수 있습니다.
 
 ---
 

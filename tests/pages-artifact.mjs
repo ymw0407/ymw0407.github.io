@@ -57,3 +57,15 @@ test('every shareable page publishes its own social metadata and 1200×630 PNG',
     }
   }
 });
+
+test('sitemap and RSS publish HTTPS links on the custom domain', () => {
+  const origin = 'https://blog.sinav.cloud';
+  const sitemap = readFileSync(new URL('sitemap.xml', dist), 'utf8');
+  const feed = readFileSync(new URL('rss.xml', dist), 'utf8');
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+  const links = [...feed.matchAll(/<link>([^<]+)<\/link>/g)].map(match => match[1]);
+  for (const url of [...locations, ...links]) assert.equal(new URL(url).origin, origin);
+  assert.ok(locations.includes(origin + '/system_io_uring_study/'));
+  assert.ok(locations.includes(origin + '/LetterBox-Generator/'));
+  assert.ok(links.includes(origin + '/'));
+});

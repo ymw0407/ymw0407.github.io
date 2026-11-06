@@ -1,4 +1,5 @@
 ---
+rssGuid: "https://ymw0407.github.io/posts/2026-11-01-nand-read-granularity-archive-notes"
 title: "[Research Archive] NAND 플래시 읽기 단위 불일치 분석과 탐색 종료 회고"
 titleEn: "[Research Archive] Analyzing NAND Read Granularity Mismatch & Lessons from a Discontinued Exploration"
 date: "2026-11-01"
