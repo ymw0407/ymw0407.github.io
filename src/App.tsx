@@ -26,6 +26,8 @@ import { HomeView } from './components/HomeView';
 import { PortfolioView } from './components/PortfolioView';
 import { BlogView } from './components/BlogView';
 import { ArchiveView } from './components/ArchiveView';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { readPreference, savePreference } from './utils/preferences';
 import { BlogPostPage } from './pages/BlogPostPage';
 import { Language, PROFILE_DATA } from './data/careerData';
 import { getAllBlogPosts } from './utils/blogLoader';
@@ -62,7 +64,7 @@ import {
 
 function detectSystemLanguage(): Language {
   if (typeof window === 'undefined') return 'ko';
-  const saved = window.localStorage.getItem('mw_lang');
+  const saved = readPreference('mw_lang');
   if (saved === 'ko' || saved === 'en') return saved;
   const sysLang = (
     window.navigator.language ||
@@ -75,7 +77,7 @@ function detectSystemLanguage(): Language {
 const AppLayout: React.FC = () => {
   const [lang, setLang] = useState<Language>(detectSystemLanguage);
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const saved = window.localStorage.getItem('mw_theme_v2');
+    const saved = readPreference('mw_theme_v2');
     return saved === 'dark' ? 'dark' : 'light';
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -161,7 +163,7 @@ const AppLayout: React.FC = () => {
         canonicalPath: '/archive',
         lang,
       });
-    } else {
+    } else if (path === '/' || path === '/projects') {
       updateDocumentSeo({
         title:
           lang === 'ko'
@@ -176,13 +178,13 @@ const AppLayout: React.FC = () => {
 
   const selectLanguage = (next: Language) => {
     setLang(next);
-    window.localStorage.setItem('mw_lang', next);
+    savePreference('mw_lang', next);
   };
 
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
-    window.localStorage.setItem('mw_theme_v2', next);
+    savePreference('mw_theme_v2', next);
   };
 
   const navItems: {
@@ -467,6 +469,7 @@ const AppLayout: React.FC = () => {
               }
             />
             <Route path="/archive" element={<ArchiveView lang={lang} />} />
+            <Route path="*" element={<NotFoundPage lang={lang} />} />
           </Routes>
         </main>
 

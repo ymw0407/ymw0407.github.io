@@ -36,7 +36,8 @@ import {
   tagRow,
   topicTopRow,
 } from '../styles/components.css';
-import { iconControlBtn, primaryActionBtn } from '../styles/layout.css';
+import { NotFoundPage } from './NotFoundPage';
+import { iconControlBtn } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
 
 interface BlogPostPageProps {
@@ -162,32 +163,7 @@ export const BlogPostPage: React.FC<BlogPostPageProps> = ({ lang, posts }) => {
     setTimeout(() => setCopiedUrl(false), 2000);
   };
 
-  if (!post) {
-    return (
-      <div className={postPageWrapper}>
-        <SpotlightCard>
-          <div className={cardPadding} style={{ textAlign: 'center', padding: '3rem 1.5rem' }}>
-            <h2 style={{ marginTop: 0 }}>
-              {lang === 'ko' ? '포스트를 찾을 수 없습니다.' : 'Post Not Found'}
-            </h2>
-            <p style={{ color: vars.color.textMuted, marginBottom: '1.5rem' }}>
-              {lang === 'ko'
-                ? '요청하신 아티클 경로가 존재하지 않거나 이동되었습니다.'
-                : 'The article you requested could not be found.'}
-            </p>
-            <button
-              type="button"
-              onClick={() => navigate('/blog')}
-              className={primaryActionBtn}
-            >
-              <RiArrowLeftLine size={16} />
-              {lang === 'ko' ? '블로그 목록으로 돌아가기' : 'Back to Blog'}
-            </button>
-          </div>
-        </SpotlightCard>
-      </div>
-    );
-  }
+  if (!post) return <NotFoundPage lang={lang} />;
 
   return (
     <div className={postPageWrapper}>
