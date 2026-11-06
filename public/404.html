@@ -61,6 +61,12 @@
       </figure>
     </main>
     <script>
+      // Remove only the empty query fragments accumulated by the old 404 loop.
+      if (/^\?\/(?:&\/(?:~and~\/)*)?$/.test(location.search)) {
+        const clean = new URL(location.href);
+        clean.search = '';
+        history.replaceState(history.state, '', clean);
+      }
       document.getElementById('path').textContent = location.pathname;
       let lang = navigator.language.toLowerCase().startsWith('ko') ? 'ko' : 'en';
       try {
