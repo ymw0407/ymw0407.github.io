@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#fbfcfd">
+    <title>404 · 페이지를 찾을 수 없습니다 | sinav</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+    <style>
+      .fallback { --bg: #fbfcfd; --card: #fff; --ink: #0f172a; --muted: #475569; --border: #e2e8f0; --accent: #2563eb;
+        min-height: 100vh; padding: .85rem 1.25rem; background: var(--bg); color: var(--ink); font: 1rem/1.5 'Pretendard Variable', system-ui, sans-serif; }
+      html[data-theme="dark"] .fallback { --bg: #090d16; --card: #111827; --ink: #f8fafc; --muted: #cbd5e1; --border: #334155; --accent: #3b82f6; }
+      .fallback * { box-sizing: border-box; }
+      .fallback a { color: inherit; text-decoration: none; }
+      .fallback header, .fallback main { max-width: 1060px; margin: auto; }
+      .fallback header, .fallback section { border: 1px solid var(--border); background: var(--card); box-shadow: 0 3px 16px #0f172a0a; }
+      .fallback header { border-radius: 999px; padding: .45rem 1rem; }
+      .fallback header a, .fallback nav { display: flex; align-items: center; gap: .6rem; }
+      .fallback main { padding: 2rem 1.25rem; }
+      .fallback section { border-radius: 1.25rem; padding: clamp(1.25rem, 3vw, 2.1rem); }
+      .fallback .code { color: var(--accent); font-weight: 700; }
+      .fallback h1 { margin: .6rem 0; font-size: clamp(1.7rem, 3.8vw, 2.55rem); letter-spacing: -.03em; line-height: 1.22; word-break: keep-all; }
+      .fallback section { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; gap: 1.5rem; }
+      .fallback figure { margin: 0; border: 1px solid var(--border); border-radius: 1.1rem; overflow: hidden; }
+      .fallback figure img { display: block; width: 100%; height: 220px; object-fit: cover; }
+      .fallback figcaption { padding: .85rem 1rem; font-size: .85rem; }
+      .fallback figcaption a { color: var(--accent); }
+      @media (max-width: 860px) { .fallback section { grid-template-columns: minmax(0, 1fr); } }
+      .fallback code { color: var(--muted); overflow-wrap: anywhere; }
+      .fallback nav { flex-wrap: wrap; margin-top: 1.2rem; }
+      .fallback nav a { padding: .45rem .9rem; border-radius: 999px; border: 1px solid var(--border); font-size: .85rem; font-weight: 600; }
+      .fallback nav .home { color: white; background: var(--accent); border-color: var(--accent); }
+      html[lang="ko"] .fallback [lang="en"], html[lang="en"] .fallback [lang="ko"] { display: none; }
+      @media (max-width: 640px) { .fallback { padding: .55rem .75rem; } .fallback main { padding: 1.35rem .25rem; } }
+    </style>
+  </head>
+  <body style="margin:0">
+    <div id="root" data-not-found>
+      <div class="fallback">
+        <header><a href="/"><img src="/favicon.svg" width="34" height="34" alt=""><strong><span lang="ko">윤민우</span><span lang="en">Minwoo Yun</span></strong></a></header>
+        <main>
+          <section>
+            <div>
+              <span class="code">404</span>
+              <h1><span lang="ko">페이지를 찾을 수 없습니다</span><span lang="en">Page not found</span></h1>
+              <code id="path"></code>
+              <nav>
+                <a class="home" href="/"><span lang="ko">홈으로</span><span lang="en">Home</span></a>
+                <a href="/blog"><span lang="ko">블로그 글 목록</span><span lang="en">Browse the blog</span></a>
+              </nav>
+            </div>
+            <figure>
+              <img src="/photography/2026-weather-aurora-curtain.jpg" alt="" width="1600" height="1066">
+              <figcaption>
+                <span lang="ko">숲 위의 오로라 커튼</span><span lang="en">Aurora Curtain Above the Forest</span>
+                · <a href="/archive"><span lang="ko">사진 아카이브</span><span lang="en">Photo archive</span></a>
+              </figcaption>
+            </figure>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script>
+      // Remove only the empty query fragments accumulated by the old 404 loop.
+      if (/^\?\/(?:&\/(?:~and~\/)*)?$/.test(location.search)) {
+        const clean = new URL(location.href);
+        clean.search = '';
+        history.replaceState(history.state, '', clean);
+      }
+      document.getElementById('path').textContent = location.pathname;
+      let lang = navigator.language.toLowerCase().startsWith('ko') ? 'ko' : 'en';
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem('mw_theme_v2') || 'light';
+        const saved = localStorage.getItem('mw_lang');
+        if (saved === 'ko' || saved === 'en') lang = saved;
+      } catch { /* Storage can be disabled in embedded browsers. */ }
+      document.documentElement.lang = lang;
+      if (lang === 'en') document.title = '404 · Page not found | sinav';
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -74,7 +74,11 @@ function detectSystemLanguage(): Language {
   return sysLang.startsWith('ko') ? 'ko' : 'en';
 }
 
-const AppLayout: React.FC = () => {
+interface AppProps {
+  notFoundDocument: boolean;
+}
+
+const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
   const [lang, setLang] = useState<Language>(detectSystemLanguage);
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     const saved = readPreference('mw_theme_v2');
@@ -84,7 +88,9 @@ const AppLayout: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigateInApp = useNavigate();
+  // Leave a server 404 with a fresh document and the destination's HTTP status.
+  const navigate = notFoundDocument ? (path: string) => window.location.assign(path) : navigateInApp;
   const allPosts = useMemo(() => getAllBlogPosts(), []);
 
   useEffect(() => {
@@ -101,7 +107,7 @@ const AppLayout: React.FC = () => {
     setMobileMenuOpen(false);
     const path = location.pathname.replace(/\/+$/, '') || '/';
 
-    if (path.startsWith('/posts/')) {
+    if (notFoundDocument || path.startsWith('/posts/')) {
       // BlogPostPage handles its own article SEO metadata
       return;
     }
@@ -174,7 +180,7 @@ const AppLayout: React.FC = () => {
         lang,
       });
     }
-  }, [location.pathname, lang]);
+  }, [location.pathname, lang, notFoundDocument]);
 
   const selectLanguage = (next: Language) => {
     setLang(next);
@@ -229,6 +235,7 @@ const AppLayout: React.FC = () => {
   ];
 
   const isNavItemActive = (item: (typeof navItems)[number]) => {
+    if (notFoundDocument) return false;
     if (item.path === '/') {
       return location.pathname === '/';
     }
@@ -384,7 +391,7 @@ const AppLayout: React.FC = () => {
 
         {/* Main Content Container with SEO-Friendly Page Routes */}
         <main className={mainContainer}>
-          <Routes>
+          {notFoundDocument ? <NotFoundPage lang={lang} /> : <Routes>
             <Route
               path="/"
               element={
@@ -470,7 +477,7 @@ const AppLayout: React.FC = () => {
             />
             <Route path="/archive" element={<ArchiveView lang={lang} />} />
             <Route path="*" element={<NotFoundPage lang={lang} />} />
-          </Routes>
+          </Routes>}
         </main>
 
         {/* Footer */}
@@ -519,10 +526,10 @@ const AppLayout: React.FC = () => {
   );
 };
 
-export const App: React.FC = () => {
+export const App: React.FC<AppProps> = ({ notFoundDocument }) => {
   return (
     <BrowserRouter>
-      <AppLayout />
+      <AppLayout notFoundDocument={notFoundDocument} />
     </BrowserRouter>
   );
 };

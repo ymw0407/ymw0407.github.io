@@ -7,6 +7,7 @@ export default defineConfig({
   base: '/',
   build: {
     rollupOptions: {
+      input: ['index.html', '404.html'],
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],

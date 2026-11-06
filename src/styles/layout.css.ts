@@ -1,6 +1,7 @@
 import { keyframes, style } from '@vanilla-extract/css';
 import { vars } from './theme.css';
 
+const COMPACT_NAV = 'screen and (max-width: 1080px)';
 const SPRING_BOUNCE = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
 const SPRING_SMOOTH = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
@@ -157,7 +158,7 @@ export const desktopNavGroup = style({
   backgroundColor: vars.color.bgSubtle,
   border: `1px solid ${vars.color.border}`,
   '@media': {
-    'screen and (max-width: 860px)': {
+    [COMPACT_NAV]: {
       display: 'none',
     },
   },
@@ -177,6 +178,9 @@ export const navPillItem = style({
   gap: '0.38rem',
   whiteSpace: 'nowrap',
   transition: `transform 0.38s ${SPRING_BOUNCE}, background-color 0.2s ease, color 0.2s ease, box-shadow 0.25s ease`,
+  selectors: {
+    'html:lang(en) &': { paddingInline: '0.42rem' },
+  },
   ':hover': {
     color: vars.color.textPrimary,
     backgroundColor: vars.color.bgCardHover,
@@ -299,7 +303,7 @@ export const mobileMenuBtn = style({
     transform: 'scale(0.88)',
   },
   '@media': {
-    'screen and (max-width: 860px)': {
+    [COMPACT_NAV]: {
       display: 'inline-flex',
     },
   },
@@ -320,7 +324,7 @@ export const mobileDrawer = style({
   gap: '0.3rem',
   animation: `${drawerSpringDown} 0.38s ${SPRING_BOUNCE}`,
   '@media': {
-    'screen and (max-width: 860px)': {
+    [COMPACT_NAV]: {
       display: 'flex',
     },
   },
