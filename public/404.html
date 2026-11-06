@@ -8,7 +8,7 @@
       // Converts path into query string so index.html can restore clean URLs via history.replaceState
       var pathSegmentsToKeep = window.location.hostname.endsWith('.github.io') &&
         window.location.pathname.split('/').filter(Boolean).length > 0 &&
-        !['posts', 'portfolio', 'research', 'publications', 'projects', 'archive'].includes(
+        !['blog', 'posts', 'portfolio', 'research', 'publications', 'projects', 'archive'].includes(
           window.location.pathname.split('/').filter(Boolean)[0]
         )
         ? 1

@@ -196,7 +196,7 @@ function generateSitemapXml(routes) {
   const urlsXml = routes
     .map(
       (r) => `  <url>
-    <loc>${escapeXml(`${SITE_ORIGIN}${r.path === '/' ? '/' : r.path}`)}</loc>
+    <loc>${escapeXml(r.fullUrl || `${SITE_ORIGIN}${r.path === '/' ? '/' : r.path}`)}</loc>
     <lastmod>${escapeXml(r.lastmod)}</lastmod>
     <changefreq>${escapeXml(r.changefreq)}</changefreq>
     <priority>${escapeXml(r.priority)}</priority>
@@ -205,7 +205,12 @@ function generateSitemapXml(routes) {
     .join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+>
 ${urlsXml}
 </urlset>
 `;
@@ -318,13 +323,38 @@ function run() {
       ].join('\n    '),
     },
     {
+      path: '/projects',
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: '0.85',
+      title: '소프트웨어 & 시스템 프로젝트 (Projects) | 윤민우 (Minwoo Yun)',
+      description:
+        'Open-Raw 사진가 RAW 커뮤니티, Co-mit AI 커밋 에이전트(MCP), Open-Set-Go 오픈소스 거버넌스 자동화, Home++ webOS 월패드 등 주요 프로젝트 아카이브',
+    },
+    {
       path: '/archive',
       lastmod: today,
       changefreq: 'monthly',
-      priority: '0.7',
+      priority: '0.75',
       title: '아카이브 & 수상 사진 갤러리 (Archive & Photography) | 윤민우 (Minwoo Yun)',
       description:
         '기상사진 공모전 장려상, 해군창설 80주년 사진공모전 동상 등 수상 사진 작품 갤러리 및 해군지(Navy Magazine) 기고 수필 아카이브',
+    },
+  ];
+
+  // Sub-repository GitHub Pages hosted under https://ymw0407.github.io/<repo>/
+  const externalSubPages = [
+    {
+      fullUrl: `${SITE_ORIGIN}/system_io_uring_study/`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: '0.80',
+    },
+    {
+      fullUrl: `${SITE_ORIGIN}/LetterBox-Generator/`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: '0.70',
     },
   ];
 
@@ -339,8 +369,9 @@ function run() {
       path: `/posts/${p.slug}`,
       lastmod: p.date,
       changefreq: 'monthly',
-      priority: '0.8',
+      priority: '0.80',
     })),
+    ...externalSubPages,
   ];
 
   const sitemapXml = generateSitemapXml(allSitemapEntries);
@@ -361,10 +392,11 @@ function run() {
 
     const baseHtml = fs.readFileSync(path.join(DIST_DIR, 'index.html'), 'utf8');
 
-    // 1. Pre-render static sub-route index.html files (/portfolio, /research, /publications, /archive)
+    // 1. Pre-render static sub-route HTML files (/blog.html + /blog/index.html, etc.)
     for (const route of staticRoutes) {
       if (route.path === '/') continue;
-      const routeDir = path.join(DIST_DIR, route.path.slice(1));
+      const routeName = route.path.slice(1);
+      const routeDir = path.join(DIST_DIR, routeName);
       fs.mkdirSync(routeDir, { recursive: true });
 
       const html = injectRouteSeoIntoHtml(baseHtml, {
@@ -378,10 +410,13 @@ function run() {
         )}</p></main>`,
       });
 
+      fs.writeFileSync(path.join(DIST_DIR, `${routeName}.html`), html, 'utf8');
       fs.writeFileSync(path.join(routeDir, 'index.html'), html, 'utf8');
     }
 
-    // 2. Pre-render dedicated HTML files for each blog post (/posts/:slug/index.html)
+    // 2. Pre-render dedicated HTML files for each blog post (/posts/:slug.html + /posts/:slug/index.html)
+    const postsDistRoot = path.join(DIST_DIR, 'posts');
+    fs.mkdirSync(postsDistRoot, { recursive: true });
     for (const post of posts) {
       const postPath = `/posts/${post.slug}`;
       const postDir = path.join(DIST_DIR, 'posts', post.slug);
@@ -461,6 +496,7 @@ function run() {
         )}</p><pre>${escapeHtmlAttr(post.body)}</pre></article>`,
       });
 
+      fs.writeFileSync(path.join(postsDistRoot, `${post.slug}.html`), html, 'utf8');
       fs.writeFileSync(path.join(postDir, 'index.html'), html, 'utf8');
     }
 

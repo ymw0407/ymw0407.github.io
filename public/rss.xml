@@ -5,7 +5,7 @@
     <link>https://ymw0407.github.io/</link>
     <description>Operating Systems, Linux Kernel I/O (io_uring), Flash Storage Systems, and Computer Architecture Research Notes by Minwoo Yun</description>
     <language>ko</language>
-    <lastBuildDate>Fri, 06 Nov 2026 16:47:20 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 17:02:38 GMT</lastBuildDate>
     <atom:link href="https://ymw0407.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[Research Archive] NAND 플래시 읽기 단위 불일치 분석과 탐색 종료 회고</title>

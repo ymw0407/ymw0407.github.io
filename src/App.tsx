@@ -97,7 +97,7 @@ const AppLayout: React.FC = () => {
   // Close mobile menu and update SEO meta for top-level routes
   useEffect(() => {
     setMobileMenuOpen(false);
-    const path = location.pathname;
+    const path = location.pathname.replace(/\/+$/, '') || '/';
 
     if (path.startsWith('/posts/')) {
       // BlogPostPage handles its own article SEO metadata
