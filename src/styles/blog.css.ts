@@ -133,6 +133,9 @@ export const postSidebarSticky = style({
     'screen and (max-width: 960px)': {
       position: 'static',
     },
+    'screen and (max-width: 640px)': {
+      gridRow: 1,
+    },
   },
 });
 

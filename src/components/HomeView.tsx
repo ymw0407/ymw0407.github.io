@@ -65,6 +65,8 @@ import {
   statusBadgeRow,
 } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
+import { MobileDetails } from './MobileDetails';
+import { hideOnMobile, mobileLinks } from '../styles/mobile.css';
 
 interface HomeViewProps {
   lang: Language;
@@ -106,13 +108,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
               ? 'Memory & Storage Lab @ 국민대학교 학부연구생'
               : 'Undergraduate Researcher @ Memory & Storage Lab, Kookmin Univ.'}
           </span>
-          <span className={secondaryStatusPill}>
+          <span className={`${secondaryStatusPill} ${hideOnMobile}`}>
             {lang === 'ko'
               ? 'UC Irvine BIAS Lab 방문 · 공동연구 (2026 – 현재)'
               : 'UC Irvine BIAS Lab Visiting & Ongoing Research'}
           </span>
           <span
-            className={secondaryStatusPill}
+            className={`${secondaryStatusPill} ${hideOnMobile}`}
             style={{ fontFamily: vars.font.mono, color: vars.color.accent, fontWeight: 600 }}
           >
             {lang === 'ko'
@@ -211,6 +213,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           )}
         </div>
 
+        <MobileDetails label={lang === 'ko' ? '소개와 관심 분야' : 'About & interests'}>
         <p className={heroBio} style={{ wordBreak: 'keep-all' }}>
           {PROFILE_DATA.bio[lang]}
         </p>
@@ -222,6 +225,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </span>
           ))}
         </div>
+
+        </MobileDetails>
 
         <div className={heroLinksRow}>
           <button
@@ -242,6 +247,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <RiArrowRightLine size={14} />
           </button>
 
+          <MobileDetails label={lang === 'ko' ? '연구와 외부 링크' : 'Research & links'}>
+          <div className={mobileLinks}>
           <button
             type="button"
             onClick={onNavigateResearch}
@@ -270,6 +277,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             LinkedIn
             <RiExternalLinkLine size={14} />
           </a>
+          </div>
+          </MobileDetails>
         </div>
       </section>
 
@@ -283,6 +292,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       />
 
       {/* 3. BLOG TOPIC & LIFESTYLE CHANNELS (TL;DR, Research, Dev, Photo, Coffee, Cocktail, Essay) */}
+      <MobileDetails label={lang === 'ko' ? '카테고리별로 둘러보기' : 'Browse categories'}>
       <section className={sectionBlock}>
         <div className={sectionHeader}>
           <div className={sectionTitleGroup}>
@@ -370,6 +380,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           })}
         </div>
       </section>
+      </MobileDetails>
 
       {/* 4. TWO-COLUMN LIVE FEED: RECENT BLOG POSTS & CURRENTLY READING PAPERS */}
       <section className={sectionBlock}>

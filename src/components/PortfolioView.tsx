@@ -103,6 +103,8 @@ import {
   socialLinkBtn,
 } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
+import { MobileDetails } from './MobileDetails';
+import { desktopOnly, mobileMetricGrid } from '../styles/mobile.css';
 
 interface PortfolioViewProps {
   lang: Language;
@@ -216,14 +218,16 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             {/* Left Column: Researcher CV Profile & Career Timeline */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <span className={liveBadge}>
-                    <span className={pulseDot} />
-                    <RiUserStarLine size={13} />
-                    {lang === 'ko'
-                      ? 'Curriculum Vitae · 연구자 및 시스템 엔지니어 포트폴리오'
-                      : 'Curriculum Vitae · Researcher & Systems Portfolio'}
-                  </span>
+                <div className={desktopOnly}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', marginBottom: '0.75rem' }}>
+                    <span className={liveBadge}>
+                      <span className={pulseDot} />
+                      <RiUserStarLine size={13} />
+                      {lang === 'ko'
+                        ? 'Curriculum Vitae · 연구자 및 시스템 엔지니어 포트폴리오'
+                        : 'Curriculum Vitae · Researcher & Systems Portfolio'}
+                    </span>
+                  </div>
                 </div>
 
                 <div
@@ -278,6 +282,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                 >
                   {PROFILE_DATA.headline[lang]}
                 </p>
+                <MobileDetails label={lang === 'ko' ? '소개와 경력 요약' : 'About & career summary'}>
                 <div
                   style={{
                     marginBottom: '0.55rem',
@@ -398,9 +403,11 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     </div>
                   </div>
                 </div>
+                </MobileDetails>
               </div>
 
               {/* Tech Stack Tags */}
+              <MobileDetails label={lang === 'ko' ? '기술 스택' : 'Technical skills'}>
               <div className={tagRow} style={{ marginTop: '0.35rem' }}>
                 {[
                   'C / C++',
@@ -417,11 +424,12 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                   </span>
                 ))}
               </div>
+              </MobileDetails>
             </div>
 
             {/* Right Column: Key Metrics 2x2 Bento Grid & Quick Navigation */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
-              <div className={statBentoGrid}>
+              <div className={`${statBentoGrid} ${mobileMetricGrid}`}>
                 <div
                   className={statBentoCard}
                   style={{ cursor: onNavigatePublications ? 'pointer' : 'default' }}
@@ -495,6 +503,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                 </div>
               </div>
 
+              <div className={desktopOnly}>
               {/* Quick Jump Buttons */}
               <div
                 style={{
@@ -537,6 +546,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                   )}
                 </div>
               </div>
+              </div>
             </div>
           </div>
         </section>
@@ -544,6 +554,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
 
       {/* Quick Section Jump Dock on /portfolio */}
       {isPortfolioMain && (
+        <div className={desktopOnly}>
         <nav className={sectionQuickDock} aria-label="Portfolio Section Quick Jump">
           <span
             style={{
@@ -569,6 +580,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             </a>
           ))}
         </nav>
+        </div>
       )}
 
       {/* =====================================================================
@@ -577,14 +589,16 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
       {isResearchDedicated && (
         <section className={pageIntroHero}>
           <div style={{ marginBottom: '1.35rem' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', marginBottom: '0.65rem' }}>
-              <span className={liveBadge}>
-                <span className={pulseDot} />
-                <RiCpuLine size={13} />
-                {lang === 'ko'
-                  ? 'Systems & Architecture Research · 연구 분야 및 연구실 아카이브'
-                  : 'Systems & Architecture Research · Research Pillars & Labs'}
-              </span>
+            <div className={desktopOnly}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', marginBottom: '0.65rem' }}>
+                <span className={liveBadge}>
+                  <span className={pulseDot} />
+                  <RiCpuLine size={13} />
+                  {lang === 'ko'
+                    ? 'Systems & Architecture Research · 연구 분야 및 연구실 아카이브'
+                    : 'Systems & Architecture Research · Research Pillars & Labs'}
+                </span>
+              </div>
             </div>
 
             <h1
@@ -607,6 +621,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             </p>
           </div>
 
+          <MobileDetails label={lang === 'ko' ? '연구 관심 분야' : 'Research interests'}>
           {/* 3-Column Research Architecture Pillars */}
           <div className={gridThreeCol} style={{ marginBottom: '1.1rem' }}>
             {RESEARCH_PILLARS.map((pillar) => (
@@ -634,6 +649,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             ))}
           </div>
 
+          </MobileDetails>
           {/* Confidentiality & Open Archive Policy Banner */}
           <div className={lineageBanner} style={{ marginBottom: 0 }}>
             <RiShieldKeyholeLine size={18} color={vars.color.accent} style={{ flexShrink: 0 }} />
@@ -650,6 +666,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           SECTION: RESEARCHER PHILOSOPHY, NARRATIVE & EDUCATION (Shown on /portfolio)
          ===================================================================== */}
       {isPortfolioMain && (
+        <MobileDetails label={lang === 'ko' ? '소개와 철학' : 'About & philosophy'} anchor="about">
         <section className={sectionBlock} id="about">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -841,12 +858,14 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             </SpotlightCard>
           </div>
         </section>
+        </MobileDetails>
       )}
 
       {/* =====================================================================
           SECTION: CHRONOLOGICAL CAREER & RESEARCH TIMELINE (Shown on /portfolio)
          ===================================================================== */}
       {isPortfolioMain && (
+        <MobileDetails label={lang === 'ko' ? '경력 타임라인' : 'Career timeline'} anchor="timeline">
         <section className={sectionBlock} id="timeline">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -949,6 +968,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             ))}
           </div>
         </section>
+        </MobileDetails>
       )}
 
       {/* =====================================================================
@@ -956,6 +976,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           (Shown on /portfolio or /projects)
          ===================================================================== */}
       {(isPortfolioMain || isProjectsDedicated) && (
+        <MobileDetails label={lang === 'ko' ? '실무와 프로젝트' : 'Work & projects'} anchor="projects" enabled={isPortfolioMain}>
         <section className={sectionBlock} id="projects">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1371,6 +1392,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             })}
           </div>
         </section>
+        </MobileDetails>
       )}
 
       {/* =====================================================================
@@ -1378,6 +1400,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           (Shown SECOND on /portfolio)
          ===================================================================== */}
       {isPortfolioMain && (
+        <MobileDetails label={lang === 'ko' ? '수상과 활동' : 'Honors & activities'} anchor="honors">
         <section className={sectionBlock} id="honors">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1544,12 +1567,14 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             </SpotlightCard>
           </div>
         </section>
+        </MobileDetails>
       )}
 
       {/* =====================================================================
           SECTION: RESEARCH & LABORATORIES (Detailed view on /research, or after Honors on /portfolio)
          ===================================================================== */}
       {(isResearchDedicated || isPortfolioMain) && (
+        <MobileDetails label={lang === 'ko' ? '연구실과 연구 주제' : 'Research labs & topics'} anchor="research" enabled={isPortfolioMain}>
         <section className={sectionBlock} id="research">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1604,6 +1629,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     {lab.overview[lang]}
                   </p>
 
+                  <MobileDetails label={lang === 'ko' ? '연구 주제와 자료 보기' : 'Research topics & resources'}>
                   {/* 2-Column Balanced Bento Grid for Research Topics */}
                   <div className={topicGrid}>
                     {lab.topics.map((topic) => (
@@ -1787,17 +1813,20 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                       </div>
                     ))}
                   </div>
+                  </MobileDetails>
                 </div>
               </SpotlightCard>
             ))}
           </div>
         </section>
+        </MobileDetails>
       )}
 
       {/* =====================================================================
           SECTION: PUBLICATIONS (Shown on /publications or /portfolio)
          ===================================================================== */}
       {(isPublicationsDedicated || isPortfolioMain) && (
+        <MobileDetails label={lang === 'ko' ? '학술 논문' : 'Publications'} anchor="publications" enabled={isPortfolioMain}>
         <section className={sectionBlock} id="publications">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1942,6 +1971,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             })}
           </div>
         </section>
+        </MobileDetails>
       )}
 
       {/* =====================================================================
@@ -1949,6 +1979,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           (Shown on /research, /publications, and /portfolio)
          ===================================================================== */}
       {(isResearchDedicated || isPublicationsDedicated || isPortfolioMain) && (
+        <MobileDetails label={lang === 'ko' ? '논문 리딩 로그' : 'Paper reading log'} anchor="reading-list">
         <section className={sectionBlock} id="reading-list">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -2108,6 +2139,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             ))}
           </div>
         </section>
+        </MobileDetails>
       )}
 
       {/* =====================================================================

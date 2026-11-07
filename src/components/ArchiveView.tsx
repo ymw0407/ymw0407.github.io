@@ -19,6 +19,7 @@ import {
 } from '../data/careerData';
 import { SpotlightCard } from './SpotlightCard';
 import { LoadingImage } from './LoadingImage';
+import { desktopOnly } from '../styles/mobile.css';
 import {
   awardBadge,
   cardBodyGrow,
@@ -93,6 +94,7 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({ lang }) => {
           </div>
         </div>
 
+        <div className={desktopOnly}>
         {/* Interactive Photo Showcase Carousel */}
         <div
           className={carouselWrap}
@@ -221,6 +223,7 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({ lang }) => {
           </div>
         </div>
 
+        </div>
         {/* Equal-Height Grid View Below */}
         <div className={photoGrid}>
           {PHOTO_ARCHIVE.map((photo) => (

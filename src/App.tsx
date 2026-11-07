@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   BrowserRouter,
   Route,
@@ -34,6 +34,7 @@ import { getAllBlogPosts } from './utils/blogLoader';
 import { updateDocumentSeo } from './utils/seo';
 import { pageMetadata } from './utils/social';
 import { darkTheme, lightTheme } from './styles/theme.css';
+import { desktopOnly, drawerSettings } from './styles/mobile.css';
 import { scrollTopFab } from './styles/components.css';
 import {
   appShell,
@@ -86,6 +87,7 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
     return saved === 'dark' ? 'dark' : 'light';
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLButtonElement>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const location = useLocation();
@@ -93,6 +95,18 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
   // Leave a server 404 with a fresh document and the destination's HTTP status.
   const navigate = notFoundDocument ? (path: string) => window.location.assign(path) : navigateInApp;
   const allPosts = useMemo(() => getAllBlogPosts(), []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && window.matchMedia('(max-width: 640px)').matches) {
+        setMobileMenuOpen(false);
+        mobileMenuRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -299,6 +313,7 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
 
             {/* Right Controls + Mobile Hamburger Toggle */}
             <div className={navControls}>
+              <div className={desktopOnly}>
               <div className={langSegmentWrap} role="group" aria-label="Language Switcher">
                 <button
                   type="button"
@@ -319,6 +334,7 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
                   EN
                 </button>
               </div>
+              </div>
 
               <button
                 type="button"
@@ -333,6 +349,7 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
                 )}
               </button>
 
+              <span className={desktopOnly}>
               <a
                 href={PROFILE_DATA.links.github}
                 target="_blank"
@@ -342,12 +359,16 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
               >
                 <RiGithubFill size={16} />
               </a>
+              </span>
 
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen((prev) => !prev)}
+                ref={mobileMenuRef}
                 className={mobileMenuBtn}
                 aria-label="Toggle Menu"
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation"
               >
                 {mobileMenuOpen ? (
                   <RiCloseLine size={18} />
@@ -360,7 +381,7 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
 
           {/* Mobile Responsive Slide-Down Menu Drawer */}
           {mobileMenuOpen && (
-            <nav className={mobileDrawer} aria-label="Mobile Navigation">
+            <nav id="mobile-navigation" className={mobileDrawer} aria-label="Mobile Navigation">
               {navItems.map((item) => {
                 const active = isNavItemActive(item);
                 return (
@@ -388,6 +409,16 @@ const AppLayout: React.FC<AppProps> = ({ notFoundDocument }) => {
                   </button>
                 );
               })}
+              <div className={drawerSettings}>
+                <div className={langSegmentWrap} role="group" aria-label="Language Switcher">
+                  {(['ko', 'en'] as const).map(language => (
+                    <button key={language} type="button" onClick={() => { selectLanguage(language); mobileMenuRef.current?.focus(); }} className={`${langSegmentBtn} ${lang === language ? langSegmentBtnActive : ''}`}>
+                      {language.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+                <a href={PROFILE_DATA.links.github} target="_blank" rel="noreferrer" className={iconControlBtn}><RiGithubFill size={16} /> GitHub</a>
+              </div>
             </nav>
           )}
         </header>

@@ -65,6 +65,7 @@ import {
   socialLinkBtn,
 } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
+import { desktopOnly, hideOnMobile, mobileOnly, mobileSelect, mobileSummary } from '../styles/mobile.css';
 
 interface BlogViewProps {
   lang: Language;
@@ -288,6 +289,7 @@ export const BlogView: React.FC<BlogViewProps> = ({
           }}
         >
           <div>
+            <div className={desktopOnly}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', marginBottom: '0.65rem' }}>
               <span className={liveBadge}>
                 <span className={pulseDot} />
@@ -297,8 +299,11 @@ export const BlogView: React.FC<BlogViewProps> = ({
                   : 'sinav Blog · Research, Dev, Photo, Coffee & Cocktails'}
               </span>
             </div>
+            </div>
 
+            <h1 className={mobileOnly} style={{ margin: '0 0 0.4rem', fontSize: '1.65rem' }}>{lang === 'ko' ? '블로그' : 'Blog'}</h1>
             <h1
+              className={hideOnMobile}
               style={{
                 fontSize: 'clamp(1.5rem, 2.8vw, 1.95rem)',
                 fontWeight: 800,
@@ -311,7 +316,7 @@ export const BlogView: React.FC<BlogViewProps> = ({
                 ? '시나브(sinav)의 블로그 & 노트'
                 : "sinav's Multi-Topic Blog & Notes"}
             </h1>
-            <p className={paragraphText} style={{ margin: 0, maxWidth: '760px' }}>
+            <p className={`${paragraphText} ${hideOnMobile}`} style={{ margin: 0, maxWidth: '760px' }}>
               {lang === 'ko'
                 ? '짧고 빠른 요약(TL;DR)부터 시스템·아키텍처 연구 노트, 소프트웨어 개발기, 사진 출사, 커피 브루잉, 칵테일 레시피까지 관심사를 카테고리별로 기록합니다.'
                 : 'Exploring systems & architecture research, software engineering, quick TL;DRs, photography, coffee brewing, and cocktails.'}
@@ -321,13 +326,14 @@ export const BlogView: React.FC<BlogViewProps> = ({
           <button
             type="button"
             onClick={() => openStudioWithCategory(activeCategory)}
-            className={primaryActionBtn}
+            className={`${primaryActionBtn} ${hideOnMobile}`}
           >
             <RiEdit2Line size={15} />
             {lang === 'ko' ? '새 포스트 작성 (.md)' : 'Write Post (.md)'}
           </button>
         </div>
 
+        <div className={desktopOnly}>
         {/* Category Filter Tabs */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
           <button
@@ -358,6 +364,8 @@ export const BlogView: React.FC<BlogViewProps> = ({
           })}
         </div>
 
+        </div>
+        <div className={desktopOnly}>
         {activeCategoryMeta && (
           <div
             style={{
@@ -381,6 +389,14 @@ export const BlogView: React.FC<BlogViewProps> = ({
             </span>
           </div>
         )}
+        </div>
+        <div className={mobileOnly}>
+          <label htmlFor="blog-category-filter" style={{ display: 'block', marginBottom: '0.45rem', fontSize: '0.8rem', color: vars.color.textMuted }}>{lang === 'ko' ? '카테고리' : 'Category'}</label>
+          <select id="blog-category-filter" className={mobileSelect} value={activeCategory} onChange={event => handleSelectCategory(event.currentTarget.value as BlogCategoryId | 'all')}>
+            <option value="all">{lang === 'ko' ? `전체 글 (${posts.length})` : `All posts (${posts.length})`}</option>
+            {BLOG_CATEGORIES.map(category => <option key={category.id} value={category.id}>{category.shortLabel[lang]} ({posts.filter(post => post.categoryId === category.id).length})</option>)}
+          </select>
+        </div>
       </section>
 
       {/* 2. MAIN BLOG ARTICLES FEED */}
@@ -456,13 +472,13 @@ export const BlogView: React.FC<BlogViewProps> = ({
                       {lang === 'en' && post.titleEn ? post.titleEn : post.title}
                     </h3>
 
-                    <p className={paragraphText} style={{ marginBottom: '0.4rem' }}>
+                    <p className={`${paragraphText} ${mobileSummary}`} style={{ marginBottom: '0.4rem' }}>
                       {lang === 'en' && post.summaryEn ? post.summaryEn : post.summary}
                     </p>
                   </div>
 
                   <div className={cardFooterPinned}>
-                    <div className={tagRow}>
+                    <div className={`${tagRow} ${hideOnMobile}`}>
                       {post.tags.map((t) => (
                         <span key={t} className={miniTag}>
                           #{t}
@@ -501,7 +517,7 @@ export const BlogView: React.FC<BlogViewProps> = ({
                     ? '검색 조건에 해당하는 블로그 포스트가 없습니다.'
                     : 'No blog posts matched your filter.'}
                 </div>
-                <p style={{ margin: 0, fontSize: '0.86rem', color: vars.color.textMuted }}>
+                <p className={hideOnMobile} style={{ margin: 0, fontSize: '0.86rem', color: vars.color.textMuted }}>
                   {lang === 'ko'
                     ? '아래 버튼을 눌러 이 카테고리의 첫 번째 마크다운(.md) 포스트 템플릿을 바로 작성해 보세요.'
                     : 'Click below to draft the first Markdown (.md) post for this category.'}
@@ -512,15 +528,24 @@ export const BlogView: React.FC<BlogViewProps> = ({
                   className={socialLinkBtn}
                 >
                   <RiEdit2Line size={14} color={vars.color.accent} />
+                  <span className={desktopOnly}>
                   {lang === 'ko'
                     ? `${activeCategoryMeta ? activeCategoryMeta.shortLabel.ko : '새'} 포스트 템플릿 열기 (.md)`
                     : 'Open Post Template (.md)'}
+                  </span>
+                  <span className={mobileOnly}>{lang === 'ko' ? '첫 글 작성' : 'Write the first post'}</span>
                 </button>
               </div>
             </SpotlightCard>
           )}
         </div>
       </section>
+
+      {filteredPosts.length > 0 && (
+      <div className={mobileOnly} style={{ marginBottom: '2rem' }}>
+        <button type="button" className={socialLinkBtn} onClick={() => openStudioWithCategory(activeCategory)}><RiEdit2Line size={15} />{lang === 'ko' ? '글 작성' : 'Write a post'}</button>
+      </div>
+      )}
 
       {/* Markdown & LaTeX Live Studio Modal */}
       {isStudioOpen && (

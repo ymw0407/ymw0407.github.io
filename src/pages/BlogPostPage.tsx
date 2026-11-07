@@ -37,6 +37,7 @@ import {
   topicTopRow,
 } from '../styles/components.css';
 import { NotFoundPage } from './NotFoundPage';
+import { MobileDetails } from '../components/MobileDetails';
 import { iconControlBtn } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
 
@@ -234,6 +235,7 @@ export const BlogPostPage: React.FC<BlogPostPageProps> = ({ lang, posts }) => {
           {lang === 'en' && post.titleEn ? post.titleEn : post.title}
         </h1>
 
+        <MobileDetails label={lang === 'ko' ? '글 정보와 태그' : 'Post details & tags'}>
         {post.titleEn && (
           <p className={articleSubtitle}>
             {lang === 'en' ? post.title : post.titleEn}
@@ -258,6 +260,7 @@ export const BlogPostPage: React.FC<BlogPostPageProps> = ({ lang, posts }) => {
             </span>
           ))}
         </div>
+        </MobileDetails>
       </header>
 
       {/* 2-Column Article Body + Sticky Table of Contents Sidebar */}
@@ -267,6 +270,7 @@ export const BlogPostPage: React.FC<BlogPostPageProps> = ({ lang, posts }) => {
         </article>
 
         <aside className={postSidebarSticky}>
+          <MobileDetails label={lang === 'ko' ? '목차와 작성자' : 'Contents & author'}>
           {tocItems.length > 0 && (
             <div className={sidebarBox}>
               <div
@@ -361,6 +365,7 @@ export const BlogPostPage: React.FC<BlogPostPageProps> = ({ lang, posts }) => {
               <RiArrowRightLine size={14} />
             </Link>
           </div>
+          </MobileDetails>
         </aside>
       </div>
 
