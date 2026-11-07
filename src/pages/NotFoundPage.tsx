@@ -3,6 +3,7 @@ import { updateSharingMeta } from '../utils/seo';
 import { pageMetadata } from '../utils/social';
 import { RiArrowRightLine, RiErrorWarningLine, RiHome4Line } from 'react-icons/ri';
 import { PHOTO_ARCHIVE, type Language } from '../data/careerData';
+import { LoadingImage } from '../components/LoadingImage';
 import {
   cvHeroGrid, inlineExternalLink, pageIntroHero, photoImageWrap, photoImg, spotlightCard,
 } from '../styles/components.css';
@@ -54,7 +55,7 @@ export function NotFoundPage({ lang }: { lang: Language }) {
         {photo && (
           <figure className={spotlightCard} style={{ margin: 0 }}>
             <div className={photoImageWrap}>
-              <img className={photoImg} src={photo.imagePath} alt="" />
+              <LoadingImage lang={lang} className={photoImg} src={photo.imagePath} alt="" />
             </div>
             <figcaption style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', padding: '0.9rem 1rem', fontSize: '0.85rem' }}>
               <strong>{ko ? photo.titleKo : photo.titleEn}</strong>

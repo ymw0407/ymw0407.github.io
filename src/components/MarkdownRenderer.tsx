@@ -19,6 +19,7 @@ import {
 } from 'react-icons/ri';
 import { Language } from '../data/careerData';
 import { HighlightedCodeBlock } from '../utils/syntaxHighlighter';
+import { LoadingImage } from './LoadingImage';
 import {
   markdownBody,
   mdCalloutBox,
@@ -415,7 +416,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                 : 'Click to zoom image'
             }
           >
-            <img
+            <LoadingImage
+              lang={lang}
               src={spec.cleanSrc}
               alt={spec.caption || 'Blog Image'}
               loading="lazy"
@@ -626,7 +628,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
                 maxHeight: '78vh',
               }}
             >
-              <img
+              <LoadingImage
+                lang={lang}
                 src={lightboxImage.src}
                 alt={lightboxImage.caption}
                 style={{

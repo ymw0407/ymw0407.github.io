@@ -18,6 +18,7 @@ import {
   PhotoArchiveItem,
 } from '../data/careerData';
 import { SpotlightCard } from './SpotlightCard';
+import { LoadingImage } from './LoadingImage';
 import {
   awardBadge,
   cardBodyGrow,
@@ -121,7 +122,8 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({ lang }) => {
                   }}
                   onClick={() => setSelectedPhoto(photo)}
                 >
-                  <img
+                  <LoadingImage
+                    lang={lang}
                     src={photo.imagePath}
                     alt={photo.titleKo}
                     style={{
@@ -227,7 +229,8 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({ lang }) => {
               onClick={() => setSelectedPhoto(photo)}
             >
               <div className={photoImageWrap}>
-                <img
+                <LoadingImage
+                  lang={lang}
                   src={photo.imagePath}
                   alt={lang === 'ko' ? photo.titleKo : photo.titleEn}
                   className={photoImg}
@@ -372,7 +375,8 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({ lang }) => {
                 justifyContent: 'center',
               }}
             >
-              <img
+              <LoadingImage
+                lang={lang}
                 src={selectedPhoto.imagePath}
                 alt={selectedPhoto.titleKo}
                 style={{
