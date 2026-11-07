@@ -66,7 +66,7 @@ import {
 } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
 import { MobileDetails } from './MobileDetails';
-import { hideOnMobile, mobileLinks } from '../styles/mobile.css';
+import { desktopOnly, hideOnMobile, mobileBalanced, mobileLinks, mobileOnly } from '../styles/mobile.css';
 
 interface HomeViewProps {
   lang: Language;
@@ -104,9 +104,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className={statusBadgeRow}>
           <span className={liveBadge}>
             <span className={pulseDot} />
-            {lang === 'ko'
+            <span className={desktopOnly}>{lang === 'ko'
               ? 'Memory & Storage Lab @ 국민대학교 학부연구생'
-              : 'Undergraduate Researcher @ Memory & Storage Lab, Kookmin Univ.'}
+              : 'Undergraduate Researcher @ Memory & Storage Lab, Kookmin Univ.'}</span>
+            <span className={mobileOnly}>{lang === 'ko' ? 'MSL · 국민대 학부연구생' : 'MSL · Undergraduate Researcher'}</span>
           </span>
           <span className={`${secondaryStatusPill} ${hideOnMobile}`}>
             {lang === 'ko'
@@ -146,7 +147,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </span>
         </div>
 
-        <p className={heroSubtitle} style={{ marginBottom: '0.9rem' }}>
+        <p className={`${heroSubtitle} ${mobileBalanced}`} style={{ marginBottom: '0.9rem' }}>
           {PROFILE_DATA.headline[lang]}
         </p>
 
@@ -172,7 +173,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               >
                 {PROFILE_DATA.slogan.en}
               </span>
-              <p
+              <p className={mobileBalanced}
                 style={{
                   margin: 0,
                   fontSize: 'clamp(1.15rem, 2.2vw, 1.38rem)',
@@ -195,7 +196,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </p>
             </>
           ) : (
-            <p
+            <p className={mobileBalanced}
               style={{
                 margin: 0,
                 fontSize: 'clamp(1.15rem, 2.2vw, 1.38rem)',
@@ -234,7 +235,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             onClick={() => onNavigateBlog()}
             className={primaryActionBtn}
           >
-            {lang === 'ko' ? '블로그 탐색하기' : 'Explore Blog'}
+            <span className={desktopOnly}>{lang === 'ko' ? '블로그 탐색하기' : 'Explore Blog'}</span>
+            <span className={mobileOnly}>{lang === 'ko' ? '블로그' : 'Blog'}</span>
             <RiArrowRightLine size={15} />
           </button>
 
@@ -243,7 +245,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             onClick={onNavigatePortfolio}
             className={socialLinkBtn}
           >
-            {lang === 'ko' ? '포트폴리오 · CV 보기' : 'Portfolio & CV'}
+            <span className={desktopOnly}>{lang === 'ko' ? '포트폴리오 · CV 보기' : 'Portfolio & CV'}</span>
+            <span className={mobileOnly}>{lang === 'ko' ? '포트폴리오' : 'Portfolio'}</span>
             <RiArrowRightLine size={14} />
           </button>
 
@@ -299,9 +302,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <span className={sectionEyebrow}>Blog Channels & Personal Archive</span>
             <h2 className={sectionTitle}>
               <RiFileTextLine size={22} color={vars.color.accent} />
-              {lang === 'ko'
+              <span className={desktopOnly}>{lang === 'ko'
                 ? '카테고리별 블로그 탐색 (Topics & Interests)'
-                : 'Explore Blog by Category'}
+                : 'Explore Blog by Category'}</span>
+              <span className={mobileOnly}>{lang === 'ko' ? '블로그 카테고리' : 'Blog Categories'}</span>
             </h2>
             <p className={sectionDesc}>
               {lang === 'ko'
@@ -498,9 +502,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <span className={sectionEyebrow}>Portfolio & Laboratories Snapshot</span>
             <h2 className={sectionTitle}>
               <RiCpuLine size={22} color={vars.color.accent} />
-              {lang === 'ko'
+              <span className={desktopOnly}>{lang === 'ko'
                 ? '연구실 · 학술 논문 · 주요 수상 요약'
-                : 'Research Labs, Publications & Honors at a Glance'}
+                : 'Research Labs, Publications & Honors at a Glance'}</span>
+              <span className={mobileOnly}>{lang === 'ko' ? '연구와 주요 성과' : 'Research & Highlights'}</span>
             </h2>
           </div>
 

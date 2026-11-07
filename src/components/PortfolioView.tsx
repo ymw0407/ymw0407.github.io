@@ -104,7 +104,7 @@ import {
 } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
 import { MobileDetails } from './MobileDetails';
-import { desktopOnly, mobileMetricGrid } from '../styles/mobile.css';
+import { desktopOnly, hideOnMobile, mobileActionRow, mobileBalanced, mobileMetricGrid, mobileOnly } from '../styles/mobile.css';
 
 interface PortfolioViewProps {
   lang: Language;
@@ -272,7 +272,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     {lang === 'ko' ? '@sinav · 시나브' : '@sinav'}
                   </span>
                 </div>
-                <p
+                <p className={mobileBalanced}
                   style={{
                     fontSize: '0.92rem',
                     fontWeight: 600,
@@ -440,7 +440,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     <RiBookOpenLine size={20} color={vars.color.accent} />
                   </div>
                   <div style={{ fontWeight: 700, fontSize: '0.88rem', color: vars.color.textPrimary }}>
-                    {lang === 'ko' ? '제1저자 학술 논문' : 'First-Author Papers'}
+                    <span className={desktopOnly}>{lang === 'ko' ? '제1저자 학술 논문' : 'First-Author Papers'}</span>
+                    <span className={mobileOnly}>{lang === 'ko' ? '학술 논문' : 'Papers'}</span>
                   </div>
                   <div style={{ fontSize: '0.76rem', color: vars.color.textMuted }}>
                     {lang === 'ko'
@@ -457,7 +458,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     <RiTrophyLine size={20} color={vars.color.amber} />
                   </div>
                   <div style={{ fontWeight: 700, fontSize: '0.88rem', color: vars.color.textPrimary }}>
-                    {lang === 'ko' ? '장관상·학회장상 수상' : 'Major Tech Honors'}
+                    <span className={desktopOnly}>{lang === 'ko' ? '장관상·학회장상 수상' : 'Major Tech Honors'}</span>
+                    <span className={mobileOnly}>{lang === 'ko' ? '주요 수상' : 'Awards'}</span>
                   </div>
                   <div style={{ fontSize: '0.76rem', color: vars.color.textMuted }}>
                     {lang === 'ko'
@@ -472,7 +474,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     <RiTerminalBoxLine size={20} color={vars.color.accentSecondary} />
                   </div>
                   <div style={{ fontWeight: 700, fontSize: '0.88rem', color: vars.color.textPrimary }}>
-                    {lang === 'ko' ? '주요 SW·시스템 프로젝트' : 'Core SW Projects'}
+                    <span className={desktopOnly}>{lang === 'ko' ? '주요 SW·시스템 프로젝트' : 'Core SW Projects'}</span>
+                    <span className={mobileOnly}>{lang === 'ko' ? '프로젝트' : 'Projects'}</span>
                   </div>
                   <div style={{ fontSize: '0.76rem', color: vars.color.textMuted }}>
                     {lang === 'ko'
@@ -493,7 +496,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     <RiCpuLine size={20} color={vars.color.emerald} />
                   </div>
                   <div style={{ fontWeight: 700, fontSize: '0.88rem', color: vars.color.textPrimary }}>
-                    {lang === 'ko' ? '소속 및 방문 연구실' : 'Research Laboratories'}
+                    <span className={desktopOnly}>{lang === 'ko' ? '소속 및 방문 연구실' : 'Research Laboratories'}</span>
+                    <span className={mobileOnly}>{lang === 'ko' ? '연구실' : 'Labs'}</span>
                   </div>
                   <div style={{ fontSize: '0.76rem', color: vars.color.textMuted }}>
                     {lang === 'ko'
@@ -610,9 +614,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                 color: vars.color.textPrimary,
               }}
             >
-              {lang === 'ko'
+              <span className={desktopOnly}>{lang === 'ko'
                 ? '연구실 및 시스템 아키텍처 탐구 (Research & Laboratories)'
-                : 'Research Laboratories & Systems Focus Pillars'}
+                : 'Research Laboratories & Systems Focus Pillars'}</span>
+              <span className={mobileOnly}>{lang === 'ko' ? '연구와 연구실' : 'Research & Labs'}</span>
             </h1>
             <p className={paragraphText} style={{ margin: 0, maxWidth: '820px' }}>
               {lang === 'ko'
@@ -673,9 +678,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               <span className={sectionEyebrow}>01 · Philosophy, Narrative & Education</span>
               <h2 className={sectionTitle}>
                 <RiUserStarLine size={22} color={vars.color.accent} />
-                {lang === 'ko'
+                <span className={desktopOnly}>{lang === 'ko'
                   ? '나의 이야기 & 엔지니어링 철학 (About Me)'
-                  : 'Researcher Narrative & Engineering Philosophy'}
+                  : 'Researcher Narrative & Engineering Philosophy'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '소개와 철학' : 'About & Philosophy'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'
@@ -872,9 +878,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               <span className={sectionEyebrow}>02 · Chronological Career & Research Journey</span>
               <h2 className={sectionTitle}>
                 <RiGitBranchLine size={22} color={vars.color.accent} />
-                {lang === 'ko'
+                <span className={desktopOnly}>{lang === 'ko'
                   ? '연구 · 개발 · 군 복무 타임라인 (2022 – 2026)'
-                  : 'Research, Engineering & Military Service Timeline'}
+                  : 'Research, Engineering & Military Service Timeline'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '경력 타임라인' : 'Career Timeline'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'
@@ -987,9 +994,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               </span>
               <h2 className={sectionTitle}>
                 <RiBriefcase4Line size={22} color={vars.color.accent} />
-                {lang === 'ko'
+                <span className={desktopOnly}>{lang === 'ko'
                   ? '실무 · 해군 개발병 경력 및 주요 소프트웨어 프로젝트'
-                  : 'Work Experience, Military SW Service & Software Projects'}
+                  : 'Work Experience, Military SW Service & Software Projects'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '실무와 프로젝트' : 'Work & Projects'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'
@@ -1187,16 +1195,18 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                           }}
                         >
                           <span>
-                            {isExpanded
+                            <span className={desktopOnly}>{isExpanded
                               ? lang === 'ko'
                                 ? '상세 아키텍처 · 기여 내역 접기'
                                 : 'Hide Architecture & Contributions'
                               : lang === 'ko'
                               ? `상세 아키텍처 · 기여 내역 펼쳐보기 (${bulletCount}개 항목)`
-                              : `Expand Architecture & Contributions (${bulletCount} items)`}
+                              : `Expand Architecture & Contributions (${bulletCount} items)`}</span>
+                            <span className={mobileOnly}>{isExpanded ? (lang === 'ko' ? '상세 내용 접기' : 'Hide Details') : (lang === 'ko' ? `기여 내역 (${bulletCount})` : `Contributions (${bulletCount})`)}</span>
                           </span>
                           {proj.presentationPdfUrl && !isExpanded && (
                             <span
+                              className={hideOnMobile}
                               style={{
                                 fontSize: '0.7rem',
                                 padding: '0.1rem 0.45rem',
@@ -1407,9 +1417,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               <span className={sectionEyebrow}>04 · Honors, Programs & Credentials</span>
               <h2 className={sectionTitle}>
                 <RiAwardLine size={22} color={vars.color.accent} />
-                {lang === 'ko'
+                <span className={desktopOnly}>{lang === 'ko'
                   ? '학술·SW 수상, 연구 프로그램 및 자격증'
-                  : 'Honors & Awards, Programs, and Certifications'}
+                  : 'Honors & Awards, Programs, and Certifications'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '수상과 활동' : 'Honors & Activities'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'
@@ -1425,9 +1436,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               <div className={cardPadding}>
                 <h3 className={labTitle} style={{ marginBottom: '1rem' }}>
                   <RiTrophyLine size={19} color={vars.color.amber} />
-                  {lang === 'ko'
+                  <span className={desktopOnly}>{lang === 'ko'
                     ? '주요 소프트웨어·학술 수상 (Honors & Awards)'
-                    : 'Academic & Software Honors'}
+                    : 'Academic & Software Honors'}</span>
+                  <span className={mobileOnly}>{lang === 'ko' ? '주요 수상' : 'Honors & Awards'}</span>
                 </h3>
                 <div className={gridThreeCol}>
                   {TECHNICAL_AWARDS.map((aw) => (
@@ -1478,9 +1490,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               <div className={cardPadding}>
                 <h3 className={labTitle} style={{ marginBottom: '1rem' }}>
                   <RiGraduationCapLine size={19} color={vars.color.accent} />
-                  {lang === 'ko'
+                  <span className={desktopOnly}>{lang === 'ko'
                     ? '선발 · 연구 프로그램 · 대외활동 (Selections & Programs)'
-                    : 'Selections, Research Programs & Activities'}
+                    : 'Selections, Research Programs & Activities'}</span>
+                  <span className={mobileOnly}>{lang === 'ko' ? '연구 프로그램과 활동' : 'Programs & Activities'}</span>
                 </h3>
                 <div className={topicGrid}>
                   {PROGRAMS_AND_ACTIVITIES.map((act) => (
@@ -1526,7 +1539,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               <div className={cardPadding}>
                 <h3 className={labTitle} style={{ marginBottom: '1rem' }}>
                   <RiStackLine size={19} color={vars.color.emerald} />
-                  {lang === 'ko' ? '기술 자격증 (Certifications)' : 'Technical Certifications'}
+                  <span className={desktopOnly}>{lang === 'ko' ? '기술 자격증 (Certifications)' : 'Technical Certifications'}</span>
+                  <span className={mobileOnly}>{lang === 'ko' ? '기술 자격증' : 'Certifications'}</span>
                 </h3>
                 <div className={gridThreeCol}>
                   {CERTIFICATIONS.map((cert) => (
@@ -1585,9 +1599,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               </span>
               <h2 className={sectionTitle}>
                 <RiDatabase2Line size={22} color={vars.color.accent} />
-                {lang === 'ko'
+                <span className={desktopOnly}>{lang === 'ko'
                   ? '소속 연구실 및 공개 연구·스터디 기록'
-                  : 'Affiliated Laboratories & Public Research Archive'}
+                  : 'Affiliated Laboratories & Public Research Archive'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '연구실과 공개 연구' : 'Labs & Public Research'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'
@@ -1629,7 +1644,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     {lab.overview[lang]}
                   </p>
 
-                  <MobileDetails label={lang === 'ko' ? '연구 주제와 자료 보기' : 'Research topics & resources'}>
+                  <MobileDetails label={lang === 'ko' ? '연구 주제와 자료 보기' : 'Topics & resources'}>
                   {/* 2-Column Balanced Bento Grid for Research Topics */}
                   <div className={topicGrid}>
                     {lab.topics.map((topic) => (
@@ -1688,7 +1703,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                                     : 'Presentation Slides (PDF)'}
                                 </div>
 
-                                <div style={{ display: 'flex', gap: '0.45rem', alignItems: 'center' }}>
+                                <div className={mobileActionRow} style={{ display: 'flex', gap: '0.45rem', alignItems: 'center' }}>
                                   <button
                                     type="button"
                                     onClick={() =>
@@ -1835,7 +1850,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               </span>
               <h2 className={sectionTitle}>
                 <RiBookOpenLine size={22} color={vars.color.accent} />
-                {lang === 'ko' ? '학술 논문 (Publications)' : 'Publications'}
+                <span className={desktopOnly}>{lang === 'ko' ? '학술 논문 (Publications)' : 'Publications'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '학술 논문' : 'Publications'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'
@@ -1990,9 +2006,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               </span>
               <h2 className={sectionTitle}>
                 <RiBookOpenLine size={22} color={vars.color.accent} />
-                {lang === 'ko'
+                <span className={desktopOnly}>{lang === 'ko'
                   ? '읽고 있는 논문 & 읽은 논문 (Paper Reading Log)'
-                  : 'Papers Currently Reading & Read'}
+                  : 'Papers Currently Reading & Read'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '논문 리딩 로그' : 'Paper Reading Log'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'
@@ -2157,9 +2174,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               </span>
               <h2 className={sectionTitle}>
                 <RiFileTextLine size={22} color={vars.color.accent} />
-                {lang === 'ko'
+                <span className={desktopOnly}>{lang === 'ko'
                   ? '연관 연구 노트 & 기술 블로그 포스트'
-                  : 'Related Research Notes & Technical Blog'}
+                  : 'Related Research Notes & Technical Blog'}</span>
+                <span className={mobileOnly}>{lang === 'ko' ? '관련 연구 노트' : 'Related Research Notes'}</span>
               </h2>
               <p className={sectionDesc}>
                 {lang === 'ko'

@@ -410,11 +410,12 @@ export const BlogView: React.FC<BlogViewProps> = ({
             </span>
             <h2 className={sectionTitle}>
               <RiFileTextLine size={22} color={vars.color.accent} />
-              {activeCategoryMeta
+              <span className={desktopOnly}>{activeCategoryMeta
                 ? activeCategoryMeta.label[lang]
                 : lang === 'ko'
                 ? '전체 글 목록 (All Posts)'
-                : 'All Blog Posts'}
+                : 'All Blog Posts'}</span>
+              <span className={mobileOnly}>{activeCategoryMeta ? activeCategoryMeta.shortLabel[lang] : lang === 'ko' ? '전체 글' : 'All Posts'}</span>
             </h2>
             <p className={sectionDesc}>
               {lang === 'ko'

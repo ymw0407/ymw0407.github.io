@@ -19,7 +19,7 @@ import {
 } from '../data/careerData';
 import { SpotlightCard } from './SpotlightCard';
 import { LoadingImage } from './LoadingImage';
-import { desktopOnly } from '../styles/mobile.css';
+import { desktopOnly, mobileOnly } from '../styles/mobile.css';
 import {
   awardBadge,
   cardBodyGrow,
@@ -82,9 +82,10 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({ lang }) => {
             <span className={sectionEyebrow}>Archive · Award-Winning Photography</span>
             <h2 className={sectionTitle}>
               <RiCameraLensLine size={22} color={vars.color.accent} />
-              {lang === 'ko'
+              <span className={desktopOnly}>{lang === 'ko'
                 ? '사진 공모전 수상작 아카이브 (Photography Gallery)'
-                : 'Award-Winning Photography Archive'}
+                : 'Award-Winning Photography Archive'}</span>
+              <span className={mobileOnly}>{lang === 'ko' ? '사진 수상작' : 'Photography Awards'}</span>
             </h2>
             <p className={sectionDesc}>
               {lang === 'ko'

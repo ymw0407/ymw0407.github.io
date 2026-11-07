@@ -1,13 +1,15 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { vars } from './theme.css';
-import { cardFooterPinned, miniTag, periodBadge, sectionEyebrow, statusVariants, topicTopRow } from './components.css';
-import { iconControlBtn, mobileMenuBtn, mobileDrawer } from './layout.css';
+import { cardFooterPinned, miniTag, periodBadge, projectExpandBtn, sectionEyebrow, statusVariants, topicTopRow } from './components.css';
+import { iconControlBtn, interestChip, liveBadge, mainContainer, mobileMenuBtn, mobileDrawer, primaryActionBtn, socialLinkBtn } from './layout.css';
 
 const phone = 'screen and (max-width: 640px)';
 
 export const hideOnMobile = style({ '@media': { [phone]: { display: 'none' } } });
 export const desktopOnly = style({ display: 'contents', '@media': { [phone]: { display: 'none' } } });
 export const mobileOnly = style({ display: 'none', '@media': { [phone]: { display: 'block' } } });
+export const mobileBalanced = style({ '@media': { [phone]: { textWrap: 'balance' } } });
+export const mobileActionRow = style({ '@media': { [phone]: { flexWrap: 'wrap', maxWidth: '100%' } } });
 
 export const mobileDetails = style({
   display: 'contents',
@@ -53,9 +55,20 @@ globalStyle(`${mobileMetricGrid} > div`, { '@media': { [phone]: { padding: '0.85
 globalStyle(`${mobileMetricGrid} > div > div:last-child`, { '@media': { [phone]: { display: 'none' } } });
 globalStyle(sectionEyebrow, { '@media': { [phone]: { display: 'none' } } });
 globalStyle(`${topicTopRow}, ${cardFooterPinned}`, { '@media': { [phone]: { flexWrap: 'wrap' } } });
-globalStyle(`${topicTopRow} > div`, { '@media': { [phone]: { minWidth: 0, maxWidth: '100%' } } });
-globalStyle([periodBadge, miniTag, ...Object.values(statusVariants)].join(', '), {
-  '@media': { [phone]: { whiteSpace: 'normal', maxWidth: '100%', overflowWrap: 'anywhere' } },
+globalStyle(`${topicTopRow} > div`, { '@media': { [phone]: { minWidth: 0, maxWidth: '100%', flexWrap: 'wrap' } } });
+globalStyle([periodBadge, miniTag, interestChip, liveBadge, ...Object.values(statusVariants)].join(', '), {
+  '@media': { [phone]: { display: 'inline-flex', flexShrink: 0, whiteSpace: 'normal', maxWidth: '100%', wordBreak: 'keep-all', overflowWrap: 'anywhere' } },
+});
+globalStyle(mainContainer, { '@media': { [phone]: { wordBreak: 'keep-all', overflowWrap: 'anywhere' } } });
+globalStyle(`${mainContainer} h1, ${mainContainer} h2, ${mainContainer} h3`, {
+  '@media': { [phone]: { textWrap: 'balance', wordBreak: 'keep-all', overflowWrap: 'anywhere' } },
+});
+globalStyle(`${primaryActionBtn}, ${socialLinkBtn}, ${mainContainer} ${iconControlBtn}`, {
+  '@media': { [phone]: { flexShrink: 0, maxWidth: '100%', minHeight: '44px', justifyContent: 'center', wordBreak: 'keep-all', overflowWrap: 'anywhere' } },
+});
+globalStyle(projectExpandBtn, { '@media': { [phone]: { minHeight: '44px' } } });
+globalStyle(`${mainContainer} h2 svg, ${mainContainer} h3 svg, ${primaryActionBtn} svg, ${socialLinkBtn} svg, ${liveBadge} svg, ${projectExpandBtn} > svg`, {
+  '@media': { [phone]: { flexShrink: 0 } },
 });
 for (const control of [iconControlBtn, mobileMenuBtn]) {
   globalStyle(control, { '@media': { [phone]: { minHeight: '44px', minWidth: '44px' } } });
