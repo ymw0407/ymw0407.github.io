@@ -931,8 +931,8 @@ export const CAREER_TIMELINE: TimelineMilestone[] = [
       en: 'Kookmin University (KOSS)',
     },
     description: {
-      ko: '국민대학교 오픈소스 소프트웨어 학술 동아리 KOSS에서 부원으로 시작해 운영부장 및 편집부장을 역임하며, 오픈소스 문화 확산·학술 세미나 기획·동아리 기술 콘텐츠 편집을 이끌었습니다.',
-      en: 'Served as Member, Head of Operations, and Head of Editorial at KOSS (Kookmin Univ. Opensource Software Society), leading open-source seminars, club operations, and technical editorial work.',
+      ko: '국민대학교 오픈소스 소프트웨어 학술 동아리 KOSS에서 부원으로 시작해 운영부장 및 편집부장을 역임했습니다.',
+      en: 'Served as Member, Head of Operations, and Head of Editorial at KOSS (Kookmin Univ. Opensource Software Society).',
     },
     tags: ['KOSS', 'Open Source', 'Head of Operations', 'Head of Editorial'],
     highlightBadge: { ko: '운영부장 · 편집부장 역임', en: 'Ops & Editorial Lead' },
