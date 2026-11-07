@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -317,24 +317,25 @@ interface MarkdownRendererProps {
   lang?: Language;
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
+const placementClassMap: Record<ImagePlacement, string> = {
+  center: mdFigureAlignCenter,
+  left: mdFigureAlignLeft,
+  right: mdFigureAlignRight,
+  'float-left': mdFigureFloatLeft,
+  'float-right': mdFigureFloatRight,
+};
+
+export const MarkdownRenderer = React.memo(function MarkdownRenderer({
   content,
   lang = 'ko',
-}) => {
+}: MarkdownRendererProps) {
   const [lightboxImage, setLightboxImage] = useState<{
     src: string;
     caption: string;
   } | null>(null);
 
-  const placementClassMap: Record<ImagePlacement, string> = {
-    center: mdFigureAlignCenter,
-    left: mdFigureAlignLeft,
-    right: mdFigureAlignRight,
-    'float-left': mdFigureFloatLeft,
-    'float-right': mdFigureFloatRight,
-  };
-
-  const components: Components = {
+  // Stable renderer types preserve image loading state across parent and lightbox updates.
+  const components = useMemo<Components>(() => ({
     // Unwrap <p> when it contains images/figures so <figure> is never nested inside <p>,
     // and automatically create a side-by-side row if multiple images are placed on one line!
     p: ({ children }) => {
@@ -556,7 +557,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         <table>{children}</table>
       </div>
     ),
-  };
+  }), [lang]);
 
   // Tag custom img renderer so `p` can detect it cleanly
   if (components.img && typeof components.img === 'function') {
@@ -645,4 +646,4 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       )}
     </>
   );
-};
+});
