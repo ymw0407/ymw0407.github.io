@@ -1,15 +1,32 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { vars } from './theme.css';
-import { cardFooterPinned, miniTag, periodBadge, projectExpandBtn, sectionEyebrow, statusVariants, topicTopRow } from './components.css';
+import { cardFooterPinned, labTitle, miniTag, periodBadge, projectExpandBtn, sectionDesc, sectionDockItem, sectionEyebrow, sectionHeader, statusVariants, topicTopRow, verticalTimelineCard } from './components.css';
 import { iconControlBtn, interestChip, liveBadge, mainContainer, mobileMenuBtn, mobileDrawer, primaryActionBtn, socialLinkBtn } from './layout.css';
 
 const phone = 'screen and (max-width: 640px)';
 
-export const hideOnMobile = style({ '@media': { [phone]: { display: 'none' } } });
 export const desktopOnly = style({ display: 'contents', '@media': { [phone]: { display: 'none' } } });
 export const mobileOnly = style({ display: 'none', '@media': { [phone]: { display: 'block' } } });
 export const mobileBalanced = style({ '@media': { [phone]: { textWrap: 'balance' } } });
 export const mobileActionRow = style({ '@media': { [phone]: { flexWrap: 'wrap', maxWidth: '100%' } } });
+
+export const mobilePortfolio = style({});
+globalStyle(`${mobilePortfolio} ${sectionHeader} ${sectionDesc}`, { '@media': { [phone]: { display: 'none' } } });
+export const mobileCareerPreview = style({});
+globalStyle(`${mobileCareerPreview} > div:nth-child(n + 3)`, { '@media': { [phone]: { display: 'none' } } });
+export const mobilePortfolioDock = style({
+  '@media': { [phone]: { display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', padding: '0.4rem', gap: '0.35rem', marginBottom: '1.5rem' } },
+});
+globalStyle(`${mobilePortfolioDock} ${sectionDockItem}`, { '@media': { [phone]: { minHeight: '44px', justifyContent: 'center', padding: '0.35rem' } } });
+
+export const philosophyCopy = style({
+  fontSize: '0.95rem', fontWeight: 600, lineHeight: 1.75, color: vars.color.textPrimary,
+  whiteSpace: 'pre-line', margin: '0.5rem 0 0', wordBreak: 'keep-all',
+  '@media': { [phone]: { fontSize: '0.9rem', fontWeight: 400, lineHeight: 1.7, color: vars.color.textSecondary, whiteSpace: 'normal', marginTop: '0.9rem' } },
+});
+export const philosophySentence = style({
+  '@media': { [phone]: { display: 'block', textWrap: 'balance', selectors: { '& + &': { marginTop: '0.85rem' }, '&:first-child': { fontWeight: 600, color: vars.color.textPrimary } } } },
+});
 
 export const mobileDetails = style({
   display: 'contents',
@@ -34,6 +51,11 @@ export const mobileDetailsContent = style({
 });
 globalStyle(`${mobileDetails}[data-expanded="true"] > button > svg`, { '@media': { [phone]: { transform: 'rotate(180deg)' } } });
 globalStyle(`${mobileDetailsButton} > svg`, { flexShrink: 0 });
+globalStyle(`${mobilePortfolio} ${verticalTimelineCard} ${topicTopRow} > div`, { '@media': { [phone]: { display: 'none' } } });
+globalStyle(`${mobilePortfolio} ${verticalTimelineCard} ${labTitle}`, { '@media': { [phone]: { fontSize: '1rem' } } });
+globalStyle(`${mobilePortfolio} ${verticalTimelineCard} ${mobileDetailsButton}`, {
+  '@media': { [phone]: { width: 'auto', minHeight: '44px', padding: '0.3rem 0', border: 0, borderRadius: 0, background: 'transparent', color: vars.color.accent, gap: '0.35rem', fontSize: '0.8rem' } },
+});
 
 export const drawerSettings = style({
   display: 'none',
@@ -74,3 +96,5 @@ for (const control of [iconControlBtn, mobileMenuBtn]) {
   globalStyle(control, { '@media': { [phone]: { minHeight: '44px', minWidth: '44px' } } });
 }
 globalStyle(mobileDrawer, { '@media': { [phone]: { maxHeight: 'calc(100dvh - 100px)', overflowY: 'auto', overscrollBehavior: 'contain' } } });
+
+export const hideOnMobile = style({ '@media': { [phone]: { display: 'none' } } });

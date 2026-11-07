@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   RiArrowDownSLine,
   RiArrowRightLine,
@@ -104,7 +104,7 @@ import {
 } from '../styles/layout.css';
 import { vars } from '../styles/theme.css';
 import { MobileDetails } from './MobileDetails';
-import { desktopOnly, hideOnMobile, mobileActionRow, mobileBalanced, mobileMetricGrid, mobileOnly } from '../styles/mobile.css';
+import { desktopOnly, hideOnMobile, mobileActionRow, mobileBalanced, mobileMetricGrid, mobileOnly, mobilePortfolio, mobileCareerPreview, mobilePortfolioDock, philosophyCopy, philosophySentence } from '../styles/mobile.css';
 
 interface PortfolioViewProps {
   lang: Language;
@@ -207,8 +207,15 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
   const isPublicationsDedicated = filterSection === 'publications';
   const isProjectsDedicated = filterSection === 'projects';
 
+  useEffect(() => {
+    const anchor = window.location.hash.slice(1);
+    if (!anchor) return;
+    const frame = requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView({ block: 'start' }));
+    return () => cancelAnimationFrame(frame);
+  }, [filterSection]);
+
   return (
-    <div>
+    <div className={isPortfolioMain ? mobilePortfolio : undefined}>
       {/* =====================================================================
           A. PORTFOLIO / CV EXCLUSIVE TOP HERO (Only on /portfolio)
          ===================================================================== */}
@@ -282,7 +289,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                 >
                   {PROFILE_DATA.headline[lang]}
                 </p>
-                <MobileDetails label={lang === 'ko' ? '소개와 경력 요약' : 'About & career summary'}>
+                <MobileDetails label={lang === 'ko' ? '자기소개' : 'About me'}>
                 <div
                   style={{
                     marginBottom: '0.55rem',
@@ -335,8 +342,10 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                   {PROFILE_DATA.bio[lang]}
                 </p>
 
+                </MobileDetails>
+
                 {/* Compact Career & Academic Timeline */}
-                <div className={timelineCompactList}>
+                <div className={`${timelineCompactList} ${mobileCareerPreview}`}>
                   <div className={timelineCompactItem}>
                     <div className={timelineItemHeader}>
                       <div style={{ fontWeight: 700, fontSize: '0.9rem', color: vars.color.textPrimary }}>
@@ -403,7 +412,6 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     </div>
                   </div>
                 </div>
-                </MobileDetails>
               </div>
 
               {/* Tech Stack Tags */}
@@ -558,9 +566,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
 
       {/* Quick Section Jump Dock on /portfolio */}
       {isPortfolioMain && (
-        <div className={desktopOnly}>
-        <nav className={sectionQuickDock} aria-label="Portfolio Section Quick Jump">
-          <span
+        <nav className={`${sectionQuickDock} ${mobilePortfolioDock}`} aria-label="Portfolio Section Quick Jump">
+          <span className={hideOnMobile}
             style={{
               fontSize: '0.75rem',
               fontWeight: 800,
@@ -572,19 +579,19 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             {lang === 'ko' ? '섹션 이동:' : 'Jump to:'}
           </span>
           {[
-            { href: '#about', ko: '01 · 소개 & 철학', en: '01 · About & Philosophy' },
-            { href: '#timeline', ko: '02 · 연구·개발 타임라인', en: '02 · Career Timeline' },
-            { href: '#projects', ko: '03 · 실무 & 프로젝트', en: '03 · Work & Projects' },
-            { href: '#honors', ko: '04 · 수상 & 자격증', en: '04 · Honors & Certs' },
-            { href: '#research', ko: '05 · 연구실 & 주제', en: '05 · Research Labs' },
-            { href: '#publications', ko: '06 · 학술 논문 & 서재', en: '06 · Publications & Papers' },
+            { href: '#about', mobile: { ko: '소개', en: 'About' }, ko: '01 · 소개 & 철학', en: '01 · About & Philosophy' },
+            { href: '#timeline', mobile: { ko: '경력', en: 'Career' }, ko: '02 · 연구·개발 타임라인', en: '02 · Career Timeline' },
+            { href: '#projects', mobile: { ko: '프로젝트', en: 'Projects' }, ko: '03 · 실무 & 프로젝트', en: '03 · Work & Projects' },
+            { href: '#honors', mobile: { ko: '수상', en: 'Honors' }, ko: '04 · 수상 & 자격증', en: '04 · Honors & Certs' },
+            { href: '#research', mobile: { ko: '연구실', en: 'Labs' }, ko: '05 · 연구실 & 주제', en: '05 · Research Labs' },
+            { href: '#publications', mobile: { ko: '논문', en: 'Papers' }, ko: '06 · 학술 논문 & 서재', en: '06 · Publications & Papers' },
           ].map((sec) => (
             <a key={sec.href} href={sec.href} className={sectionDockItem}>
-              {sec[lang]}
+              <span className={desktopOnly}>{sec[lang]}</span>
+              <span className={mobileOnly}>{sec.mobile[lang]}</span>
             </a>
           ))}
         </nav>
-        </div>
       )}
 
       {/* =====================================================================
@@ -671,7 +678,6 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           SECTION: RESEARCHER PHILOSOPHY, NARRATIVE & EDUCATION (Shown on /portfolio)
          ===================================================================== */}
       {isPortfolioMain && (
-        <MobileDetails label={lang === 'ko' ? '소개와 철학' : 'About & philosophy'} anchor="about">
         <section className={sectionBlock} id="about">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -691,6 +697,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             </div>
           </div>
 
+          <MobileDetails label={lang === 'ko' ? '로고에 담긴 이야기' : 'Story behind the logo'}>
           {/* Open Compass Logo Philosophy Banner */}
           <div style={{ marginBottom: '1rem' }}>
             <SpotlightCard>
@@ -760,26 +767,20 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             </SpotlightCard>
           </div>
 
+          </MobileDetails>
+
           {/* 2-Column Philosophy & Ethics Callout Cards */}
           <div className={gridTwoCol} style={{ marginBottom: '1.15rem' }}>
             <SpotlightCard>
               <div className={cardPadding}>
                 <div className={topicTopRow}>
-                  <span className={statusVariants.exploring}>Core Perspective</span>
-                  <span className={periodBadge}>Abstraction & Structure</span>
+                  <span className={statusVariants.exploring}><span className={desktopOnly}>Core Perspective</span><span className={mobileOnly}>{lang === 'ko' ? '엔지니어링 관점' : 'Core Perspective'}</span></span>
+                  <span className={`${periodBadge} ${hideOnMobile}`}>Abstraction & Structure</span>
                 </div>
-                <p
-                  style={{
-                    fontSize: '0.95rem',
-                    fontWeight: 600,
-                    lineHeight: 1.75,
-                    color: vars.color.textPrimary,
-                    whiteSpace: 'pre-line',
-                    margin: '0.5rem 0 0',
-                    wordBreak: 'keep-all',
-                  }}
-                >
-                  {PROFILE_DATA.philosophy.summary[lang]}
+                <p className={philosophyCopy}>
+                  {PROFILE_DATA.philosophy.summary[lang].split('\n').map(sentence => (
+                    <span className={philosophySentence} key={sentence}>{sentence}{'\n'}</span>
+                  ))}
                 </p>
               </div>
             </SpotlightCard>
@@ -787,26 +788,19 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             <SpotlightCard>
               <div className={cardPadding}>
                 <div className={topicTopRow}>
-                  <span className={statusVariants.prior}>Engineering Ethics</span>
-                  <span className={periodBadge}>Controllable Complexity</span>
+                  <span className={statusVariants.prior}><span className={desktopOnly}>Engineering Ethics</span><span className={mobileOnly}>{lang === 'ko' ? '판단과 책임' : 'Engineering Ethics'}</span></span>
+                  <span className={`${periodBadge} ${hideOnMobile}`}>Controllable Complexity</span>
                 </div>
-                <p
-                  style={{
-                    fontSize: '0.95rem',
-                    fontWeight: 600,
-                    lineHeight: 1.75,
-                    color: vars.color.textPrimary,
-                    whiteSpace: 'pre-line',
-                    margin: '0.5rem 0 0',
-                    wordBreak: 'keep-all',
-                  }}
-                >
-                  {PROFILE_DATA.philosophy.ethics[lang]}
+                <p className={philosophyCopy}>
+                  {PROFILE_DATA.philosophy.ethics[lang].split('\n').map(sentence => (
+                    <span className={philosophySentence} key={sentence}>{sentence}{'\n'}</span>
+                  ))}
                 </p>
               </div>
             </SpotlightCard>
           </div>
 
+          <MobileDetails label={lang === 'ko' ? '배경 이야기와 학력' : 'Background & education'}>
           {/* Full Narrative Story Card + Education */}
           <div className={stackList}>
             <SpotlightCard>
@@ -863,15 +857,14 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               </div>
             </SpotlightCard>
           </div>
+          </MobileDetails>
         </section>
-        </MobileDetails>
       )}
 
       {/* =====================================================================
           SECTION: CHRONOLOGICAL CAREER & RESEARCH TIMELINE (Shown on /portfolio)
          ===================================================================== */}
       {isPortfolioMain && (
-        <MobileDetails label={lang === 'ko' ? '경력 타임라인' : 'Career timeline'} anchor="timeline">
         <section className={sectionBlock} id="timeline">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -959,6 +952,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     {milestone.organization[lang]}
                   </div>
 
+                  <MobileDetails label={lang === 'ko' ? '경력 상세' : 'Career details'}>
                   <p className={paragraphText} style={{ margin: '0 0 0.75rem' }}>
                     {milestone.description[lang]}
                   </p>
@@ -970,12 +964,12 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                       </span>
                     ))}
                   </div>
+                  </MobileDetails>
                 </div>
               </div>
             ))}
           </div>
         </section>
-        </MobileDetails>
       )}
 
       {/* =====================================================================
@@ -983,7 +977,6 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           (Shown on /portfolio or /projects)
          ===================================================================== */}
       {(isPortfolioMain || isProjectsDedicated) && (
-        <MobileDetails label={lang === 'ko' ? '실무와 프로젝트' : 'Work & projects'} anchor="projects" enabled={isPortfolioMain}>
         <section className={sectionBlock} id="projects">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1044,6 +1037,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     {exp.summary[lang]}
                   </p>
 
+                  <MobileDetails label={lang === 'ko' ? '업무 상세와 기술 스택' : 'Work details & skills'} enabled={isPortfolioMain}>
                   <ul className={bulletList}>
                     {exp.bullets[lang].map((b, i) => (
                       <li key={i}>{b}</li>
@@ -1059,6 +1053,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                       ))}
                     </div>
                   </div>
+                  </MobileDetails>
                 </div>
               </SpotlightCard>
             ))}
@@ -1402,7 +1397,6 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             })}
           </div>
         </section>
-        </MobileDetails>
       )}
 
       {/* =====================================================================
@@ -1410,7 +1404,6 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           (Shown SECOND on /portfolio)
          ===================================================================== */}
       {isPortfolioMain && (
-        <MobileDetails label={lang === 'ko' ? '수상과 활동' : 'Honors & activities'} anchor="honors">
         <section className={sectionBlock} id="honors">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1485,6 +1478,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
               </div>
             </SpotlightCard>
 
+            <MobileDetails label={lang === 'ko' ? '연구 프로그램과 자격증' : 'Programs & certifications'}>
             {/* Selections, Research Programs & Activities (2-Column Balanced Grid) */}
             <SpotlightCard>
               <div className={cardPadding}>
@@ -1579,16 +1573,15 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                 </div>
               </div>
             </SpotlightCard>
+            </MobileDetails>
           </div>
         </section>
-        </MobileDetails>
       )}
 
       {/* =====================================================================
           SECTION: RESEARCH & LABORATORIES (Detailed view on /research, or after Honors on /portfolio)
          ===================================================================== */}
       {(isResearchDedicated || isPortfolioMain) && (
-        <MobileDetails label={lang === 'ko' ? '연구실과 연구 주제' : 'Research labs & topics'} anchor="research" enabled={isPortfolioMain}>
         <section className={sectionBlock} id="research">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1834,14 +1827,12 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             ))}
           </div>
         </section>
-        </MobileDetails>
       )}
 
       {/* =====================================================================
           SECTION: PUBLICATIONS (Shown on /publications or /portfolio)
          ===================================================================== */}
       {(isPublicationsDedicated || isPortfolioMain) && (
-        <MobileDetails label={lang === 'ko' ? '학술 논문' : 'Publications'} anchor="publications" enabled={isPortfolioMain}>
         <section className={sectionBlock} id="publications">
           <div className={sectionHeader}>
             <div className={sectionTitleGroup}>
@@ -1987,7 +1978,6 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             })}
           </div>
         </section>
-        </MobileDetails>
       )}
 
       {/* =====================================================================
