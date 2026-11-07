@@ -5,8 +5,20 @@
     <link>https://blog.sinav.cloud/</link>
     <description>Operating Systems, Linux Kernel I/O (io_uring), Flash Storage Systems, and Computer Architecture Research Notes by Minwoo Yun</description>
     <language>ko</language>
-    <lastBuildDate>Fri, 06 Nov 2026 18:43:47 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 07:03:47 GMT</lastBuildDate>
     <atom:link href="https://blog.sinav.cloud/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>문라이트 30일 논문 읽기, SOML Read로 시작하기</title>
+      <link>https://blog.sinav.cloud/posts/2026-11-07-moonlight-soml-read</link>
+      <guid isPermaLink="true">https://blog.sinav.cloud/posts/2026-11-07-moonlight-soml-read</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 GMT</pubDate>
+      <description>매일 논문 읽기를 시작했습니다. 같은 용량의 SSD에서 칩 수가 줄면 병렬성도 줄어들 수 있다는 SOML Read의 출발점이 기억에 남았습니다.</description>
+      <category>TL;DR</category>
+      <category>논문 읽기</category>
+      <category>Moonlight</category>
+      <category>SOML Read</category>
+      <category>3D NAND</category>
+    </item>
     <item>
       <title>[Research Archive] NAND 플래시 읽기 단위 불일치 분석과 탐색 종료 회고</title>
       <link>https://blog.sinav.cloud/posts/2026-11-01-nand-read-granularity-archive-notes</link>

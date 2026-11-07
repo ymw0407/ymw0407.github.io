@@ -104,7 +104,7 @@ export const postPageGrid = style({
   alignItems: 'start',
   '@media': {
     'screen and (max-width: 960px)': {
-      gridTemplateColumns: '1fr',
+      gridTemplateColumns: 'minmax(0, 1fr)',
     },
   },
 });
