@@ -48,6 +48,12 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://blog.sinav.cloud/posts/2026-11-07-smoked-rye-oolong</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://blog.sinav.cloud/posts/2026-11-07-moonlight-soml-read</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>

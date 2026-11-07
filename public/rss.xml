@@ -5,8 +5,20 @@
     <link>https://blog.sinav.cloud/</link>
     <description>Operating Systems, Linux Kernel I/O (io_uring), Flash Storage Systems, and Computer Architecture Research Notes by Minwoo Yun</description>
     <language>ko</language>
-    <lastBuildDate>Sat, 07 Nov 2026 07:03:47 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 14:51:49 GMT</lastBuildDate>
     <atom:link href="https://blog.sinav.cloud/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Smoked Rye Oolong 레시피와 시음 기록</title>
+      <link>https://blog.sinav.cloud/posts/2026-11-07-smoked-rye-oolong</link>
+      <guid isPermaLink="true">https://blog.sinav.cloud/posts/2026-11-07-smoked-rye-oolong</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 GMT</pubDate>
+      <description>은은한 단맛과 여러 향이 어우러지며, 가벼운 인상 속에서도 술맛이 또렷하게 남는 Smoked Rye Oolong 칵테일입니다.</description>
+      <category>Cocktail</category>
+      <category>칵테일</category>
+      <category>라이 위스키</category>
+      <category>우롱차</category>
+      <category>훈연</category>
+    </item>
     <item>
       <title>문라이트 30일 논문 읽기, SOML Read로 시작하기</title>
       <link>https://blog.sinav.cloud/posts/2026-11-07-moonlight-soml-read</link>
