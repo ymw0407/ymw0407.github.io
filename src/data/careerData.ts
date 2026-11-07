@@ -852,8 +852,8 @@ export const CAREER_TIMELINE: TimelineMilestone[] = [
       en: 'Korean Institute of Information Scientists and Engineers (KIISE)',
     },
     description: {
-      ko: '2023 한국소프트웨어종합학술대회(KSC 2023)에서 Open-Set-Go 연구 논문(pp. 425–427)을 제1저자로 발표하여 오픈소스소프트웨어 분야 최우수논문상(한국정보과학회 회장상)을 수상했습니다.',
-      en: 'Presented Open-Set-Go as First Author at KSC 2023 and received the Best Paper Award (President of KIISE Award).',
+      ko: '2023 한국소프트웨어종합학술대회(KSC 2023)에서 Open-Set-Go 연구 논문(pp. 425-427)을 제1저자로 Oral Session에서 발표했으며, 오픈소스소프트웨어 분야 최우수논문상(한국정보과학회 회장상)을 수상했습니다.',
+      en: 'Presented Open-Set-Go as First Author in an oral session at KSC 2023 and received the Best Paper Award (President of KIISE Award).',
     },
     tags: ['First Author', 'KSC 2023', 'Best Paper Award', 'Open-Set-Go'],
     highlightBadge: { ko: 'KSC 2023 최우수논문상', en: 'Best Paper Award' },
